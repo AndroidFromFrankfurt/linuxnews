@@ -3,10 +3,13 @@ package org.androidfromfrankfurt.archnews;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings.TextSize;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import at.theengine.android.simple_rss2_android.RSSItem;
@@ -43,11 +46,13 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
             }
         	
         	if (tvPubDate != null) {
-        		tvPubDate.setText(o.getDate());
+        		tvPubDate.setText(o.getDate().substring(0, o.getDate().length()-6));
             }
         	
         	if (tvDescription != null) {
-            	tvDescription.setText(o.getContent());
+        		// Pretty nice, Html.fromHtml parses the HTML/XML included in the feed automatically
+        		Spanned description = Html.fromHtml(o.getDescription(), null, new HtmlTagHandler());
+            	tvDescription.setText(description, TextView.BufferType.SPANNABLE);
             }
         	
         	if (tvLink != null) {
