@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- General -->
     <string name="app_name">ArchNews</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
+    <!-- Actionbar -->
+    <string name="action_settings">Settings</string>
+    <string name="action_reload">Reload</string>
+    
+    <!-- Dialog -->
+	<string name="dlg_loading">Fetching data</string>
+	<string name="dlg_loading_title">One second please</string>
+    
+    <!-- Layout -->
+	<string name="str_error">Couldn\'t fetch data.</string>
+	<string name="str_retry">Retry</string>
+	<string name="tell_dev">If you see one of our developers running around, tell them this:</string>
+	
 </resources>

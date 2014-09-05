@@ -1,5 +1,7 @@
 package org.androidfromfrankfurt.archnews;
 
+import com.negusoft.holoaccent.activity.AccentActivity;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -11,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class NewsActivity extends Activity {
+public class NewsActivity extends AccentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,10 @@ public class NewsActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_reload) {
+			NewsFragment.getInstance().startLoading();
+		}
+        else if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);

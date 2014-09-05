@@ -33,10 +33,10 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
         
         RSSItem o = items.get(position);
         if (o != null) {
-        	TextView tvTitle = ((TextView) v.findViewById(R.id.tvTitle));
-        	TextView tvPubDate = ((TextView) v.findViewById(R.id.tvPubDate));
-        	TextView tvDescription = ((TextView) v.findViewById(R.id.tvDescription));
-        	TextView tvLink = ((TextView) v.findViewById(R.id.tvLink));
+        	TextView tvTitle = ((TextView)v.findViewById(R.id.tv_title));
+        	TextView tvPubDate = ((TextView)v.findViewById(R.id.tv_pubdate));
+        	TextView tvDescription = ((TextView)v.findViewById(R.id.tv_description));
+        	TextView tvLink = ((TextView)v.findViewById(R.id.tv_link));
         	
         	if (tvTitle != null) {
             	tvTitle.setText(o.getTitle());
