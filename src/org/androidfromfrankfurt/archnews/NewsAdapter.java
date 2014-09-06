@@ -40,10 +40,17 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
         	TextView tvTitle = ((TextView)v.findViewById(R.id.tv_title));
         	TextView tvPubDate = ((TextView)v.findViewById(R.id.tv_pubdate));
         	TextView tvDescription = ((TextView)v.findViewById(R.id.tv_description));
-        	TextView tvLink = ((TextView)v.findViewById(R.id.tv_link));
         	
         	if (tvTitle != null) {
             	tvTitle.setText(o.getTitle());
+            	final URL url = o.getLink();
+        		tvTitle.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						ctx.startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url.toString())));
+					}
+				});
             }
         	
         	if (tvPubDate != null) {
@@ -54,19 +61,6 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
         	if (tvDescription != null) {
         		// Pretty nice, Html.fromHtml parses the HTML/XML included in the feed automatically
             	tvDescription.setText(Html.fromHtml(o.getDescription(), null, new HtmlTagHandler()));
-            }
-        	
-        	if (tvLink != null) {
-        		final URL url = o.getLink();
-        		tvLink.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						ctx.startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url.toString())));
-					}
-				});
-//            	tvLink.setText(o.getLink().toExternalForm());
-//            	Linkify.addLinks(tvLink, Linkify.ALL);
             }
         }
         
