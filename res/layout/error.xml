@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/error_message_internet" />
+                android:src="@drawable/error_message_internet_dark" />
         </LinearLayout>
 
         <LinearLayout
@@ -81,7 +81,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_margin="20dp"
+                android:background="@drawable/xml_btn_default_light"
                 android:text="@string/str_retry" />
+            
         </RelativeLayout>
 
     </LinearLayout>

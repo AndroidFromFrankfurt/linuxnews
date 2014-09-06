@@ -11,7 +11,9 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:scrollbarStyle="outsideOverlay"
+		android:scrollbarStyle="outsideInset"
+		android:clickable="false"
+		android:listSelector="@android:color/transparent"
 		android:drawSelectorOnTop="false"/>
 	
 	<include layout="@layout/error" />

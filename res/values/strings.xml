@@ -17,6 +17,7 @@
     <string name="str_null"><![CDATA[<null>]]></string>
 	<string name="str_error">Couldn\'t fetch data.</string>
 	<string name="str_retry">Retry</string>
+	<string name="str_readmore">Read more...</string>
 	<string name="tell_dev">If you see one of our developers running around, tell them this:</string>
 	
 </resources>

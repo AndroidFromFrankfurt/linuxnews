@@ -24,6 +24,7 @@ public class NewsFragment extends ListFragment {
 
 	private static NewsFragment instance;
 	private View listView;
+	private View headerView;
 	private View errorView;
 	private TextView tvError;
 	private Button btnReload;
@@ -42,6 +43,7 @@ public class NewsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.fragment_news, container, false);
+    	headerView = inflater.inflate(R.layout.header, null);
     	tvError = (TextView)rootView.findViewById(R.id.tv_errormessage);
     	btnReload = (Button)rootView.findViewById(R.id.btn_reload);
     	return rootView;
@@ -56,6 +58,9 @@ public class NewsFragment extends ListFragment {
     
     private void initialize() {
     	listView = getListView();
+    	if(headerView != null) {
+    		this.getListView().addHeaderView(headerView);
+    	}
     	errorView = getListView().getEmptyView();
     	errorView.setVisibility(View.GONE);;
     	btnReload.setOnClickListener(new OnClickListener() {
@@ -68,7 +73,6 @@ public class NewsFragment extends ListFragment {
     	loadingDialog = new ProgressDialog(getActivity());
     	loadingDialog.setTitle(getResources().getText(R.string.dlg_loading_title));
     	loadingDialog.setMessage(getResources().getText(R.string.dlg_loading));
-    	loadingDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     	loadingDialog.setIndeterminate(true);
     	loadingDialog.setCancelable(false);
     	loadingDialog.setCanceledOnTouchOutside(false);
@@ -105,6 +109,12 @@ public class NewsFragment extends ListFragment {
     		showError();
     		showErrorMessage(errorMessage);
     	}
+    }
+    
+    @Override
+    public void onDestroyView() {
+    	setListAdapter(null);
+    	super.onDestroyView();
     }
     
     private void showErrorMessage(String errorMessage) {
