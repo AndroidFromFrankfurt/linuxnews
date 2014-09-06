@@ -5,7 +5,6 @@
     <item name="tv_title" type="id"></item>
     <item name="tv_pubdate" type="id"></item>
     <item name="tv_description" type="id"></item>
-    <item name="tv_link" type="id"></item>
 
     <!-- Actionbar -->
     <item name="action_settings" type="id"></item>
