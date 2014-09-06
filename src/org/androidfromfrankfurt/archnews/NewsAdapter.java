@@ -47,7 +47,8 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
             }
         	
         	if (tvPubDate != null) {
-        		tvPubDate.setText(o.getDate().substring(0, o.getDate().length()-6));
+        		// Too stupid to turn the RSS date into a local date - just delete some chars and it'll be fine
+        		tvPubDate.setText(o.getDate().substring(5, o.getDate().length()-15));
             }
         	
         	if (tvDescription != null) {
