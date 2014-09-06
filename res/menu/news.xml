@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_reload"
         android:title="@string/action_reload"
-        android:icon="@android:drawable/ic_menu_upload"
+        android:icon="@android:drawable/ic_menu_day"
         android:orderInCategory="50"
         android:showAsAction="always"/>
     
