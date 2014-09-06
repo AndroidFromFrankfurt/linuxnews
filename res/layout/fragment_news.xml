@@ -14,7 +14,9 @@
 		android:scrollbarStyle="outsideInset"
 		android:clickable="false"
 		android:listSelector="@android:color/transparent"
-		android:drawSelectorOnTop="false"/>
+		android:drawSelectorOnTop="false"
+		android:divider="@null"
+		android:dividerHeight="10dp" />
 	
 	<include layout="@layout/error" />
 	

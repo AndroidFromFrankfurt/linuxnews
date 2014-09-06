@@ -5,10 +5,16 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:background="@drawable/news_bubble"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/str_header"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
