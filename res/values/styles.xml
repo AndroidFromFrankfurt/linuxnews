@@ -13,9 +13,9 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="Theme.HoloAccent">
+    <style name="AppTheme" parent="Theme.HoloAccent.Light">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="accentColor">#1793D1</item>
+        <item name="accentColor">@color/arch_blue</item>
     </style>
 
 </resources>

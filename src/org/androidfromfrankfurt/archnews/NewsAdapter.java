@@ -1,15 +1,16 @@
 package org.androidfromfrankfurt.archnews;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.Html;
-import android.text.Spanned;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebSettings.TextSize;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import at.theengine.android.simple_rss2_android.RSSItem;
@@ -51,13 +52,20 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
         	
         	if (tvDescription != null) {
         		// Pretty nice, Html.fromHtml parses the HTML/XML included in the feed automatically
-        		Spanned description = Html.fromHtml(o.getDescription(), null, new HtmlTagHandler());
-            	tvDescription.setText(description, TextView.BufferType.SPANNABLE);
+            	tvDescription.setText(Html.fromHtml(o.getDescription(), null, new HtmlTagHandler()));
             }
         	
         	if (tvLink != null) {
-            	tvLink.setText(o.getLink().toExternalForm());
-            	Linkify.addLinks(tvLink, Linkify.ALL);
+        		final URL url = o.getLink();
+        		tvLink.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						ctx.startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url.toString())));
+					}
+				});
+//            	tvLink.setText(o.getLink().toExternalForm());
+//            	Linkify.addLinks(tvLink, Linkify.ALL);
             }
         }
         

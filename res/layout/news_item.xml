@@ -4,32 +4,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@id/tv_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/str_null"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_margin="10dp"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@id/tv_pubdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/str_null"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-    <TextView
-        android:id="@id/tv_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/str_null"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/str_null"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/arch_blue" />
 
-    <TextView
-        android:id="@id/tv_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/str_null"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@id/tv_pubdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/str_null"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+		<View
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:layout_marginBottom="2dp"
+		    android:layout_marginTop="2dp"
+		    android:background="@drawable/xml_view_line_dotted_light"
+		    android:layerType="software" />
+        
+        <TextView
+            android:id="@id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_null"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@id/tv_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_readmore"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
 
 </LinearLayout>
