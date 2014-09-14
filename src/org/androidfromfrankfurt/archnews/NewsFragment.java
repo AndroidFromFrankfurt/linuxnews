@@ -29,8 +29,8 @@ public class NewsFragment extends ListFragment {
 	private TextView tvError;
 	private Button btnReload;
 	private ProgressDialog loadingDialog;
-	private boolean isInitialized = false;
 	private boolean listVisible;
+	private boolean currentlyLoading;
 	
     public NewsFragment() {
     	instance = this;
@@ -56,6 +56,19 @@ public class NewsFragment extends ListFragment {
     	startLoading();
     }
     
+    @Override
+    public void onDestroyView() {
+//    	setListAdapter(null);
+    	super.onDestroyView();
+    }
+    
+    
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    }
+    
     private void initialize() {
     	listView = getListView();
     	if(headerView != null) {
@@ -76,7 +89,6 @@ public class NewsFragment extends ListFragment {
     	loadingDialog.setIndeterminate(true);
     	loadingDialog.setCancelable(false);
     	loadingDialog.setCanceledOnTouchOutside(false);
-    	isInitialized = true;
     }
     
     private void parseRss() {
@@ -100,21 +112,20 @@ public class NewsFragment extends ListFragment {
     
     public void startLoading() {
     	loadingDialog.show();
+    	currentlyLoading = true;
     	parseRss();
     }
     
     private void loadingSuccessful(boolean success, String errorMessage) {
     	loadingDialog.dismiss();
+    	currentlyLoading = false;
     	if (!success && errorMessage != null) {
     		showError();
     		showErrorMessage(errorMessage);
     	}
-    }
-    
-    @Override
-    public void onDestroyView() {
-    	setListAdapter(null);
-    	super.onDestroyView();
+    	else {
+    		hideError();
+    	}
     }
     
     private void showErrorMessage(String errorMessage) {
@@ -153,4 +164,9 @@ public class NewsFragment extends ListFragment {
             listView.setVisibility(View.VISIBLE);
         }
     }
+    
+    public boolean isCurrentlyLoading() {
+    	return currentlyLoading;
+    }
+    
 }

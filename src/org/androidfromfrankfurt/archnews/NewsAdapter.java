@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import at.theengine.android.simple_rss2_android.RSSItem;
@@ -39,7 +40,7 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
         if (o != null) {
         	TextView tvTitle = ((TextView)v.findViewById(R.id.tv_title));
         	TextView tvPubDate = ((TextView)v.findViewById(R.id.tv_pubdate));
-        	TextView tvDescription = ((TextView)v.findViewById(R.id.tv_description));
+        	WebView tvDescription = ((WebView)v.findViewById(R.id.wv_description));
         	
         	if (tvTitle != null) {
             	tvTitle.setText(o.getTitle());
@@ -59,8 +60,8 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
             }
         	
         	if (tvDescription != null) {
-        		// Pretty nice, Html.fromHtml parses the HTML/XML included in the feed automatically
-            	tvDescription.setText(Html.fromHtml(o.getDescription(), null, new HtmlTagHandler()));
+            	tvDescription.loadData(o.getDescription(), "text/html", "UTF-8");
+            	tvDescription.setBackgroundColor(0x00000000);
             }
         }
         

@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.os.Build;
 
 public class NewsActivity extends AccentActivity {
@@ -26,6 +27,11 @@ public class NewsActivity extends AccentActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -43,6 +49,7 @@ public class NewsActivity extends AccentActivity {
 			NewsFragment.getInstance().startLoading();
 		}
         else if (id == R.id.action_settings) {
+        	Toast.makeText(getApplicationContext(), getResources().getString(R.string.feature_ideas), Toast.LENGTH_SHORT);
             return true;
         }
         return super.onOptionsItemSelected(item);

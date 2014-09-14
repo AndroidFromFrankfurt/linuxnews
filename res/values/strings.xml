@@ -4,6 +4,7 @@
     <!-- General -->
     <string name="app_name">ArchNews</string>
     <string name="hello_world">Hello world!</string>
+    <string name="feature_ideas">Coming soon! If you have any ideas for this app, tell me! =)</string>
 
     <!-- Actionbar -->
     <string name="action_settings">Settings</string>
