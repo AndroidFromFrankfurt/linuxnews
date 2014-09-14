@@ -24,13 +24,13 @@ public class NewsFragment extends ListFragment {
 
 	private static NewsFragment instance;
 	private View listView;
-	private View headerView;
+//	private View headerView;
 	private View errorView;
 	private TextView tvError;
 	private Button btnReload;
 	private ProgressDialog loadingDialog;
 	private boolean listVisible;
-	private boolean currentlyLoading;
+	private boolean newActivity = true;
 	
     public NewsFragment() {
     	instance = this;
@@ -43,7 +43,7 @@ public class NewsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.fragment_news, container, false);
-    	headerView = inflater.inflate(R.layout.header, null);
+//    	headerView = inflater.inflate(R.layout.header, null, false);
     	tvError = (TextView)rootView.findViewById(R.id.tv_errormessage);
     	btnReload = (Button)rootView.findViewById(R.id.btn_reload);
     	return rootView;
@@ -53,27 +53,16 @@ public class NewsFragment extends ListFragment {
     public void onStart() {
     	super.onStart();
     	initialize();
-    	startLoading();
-    }
-    
-    @Override
-    public void onDestroyView() {
-//    	setListAdapter(null);
-    	super.onDestroyView();
-    }
-    
-    
-    
-    @Override
-    public void onResume() {
-    	super.onResume();
+    	if(newActivity) {
+    		startLoading();
+    	}
     }
     
     private void initialize() {
     	listView = getListView();
-    	if(headerView != null) {
-    		this.getListView().addHeaderView(headerView);
-    	}
+//    	if(headerView != null) {
+//    		this.getListView().addHeaderView(headerView);
+//    	}
     	errorView = getListView().getEmptyView();
     	errorView.setVisibility(View.GONE);;
     	btnReload.setOnClickListener(new OnClickListener() {
@@ -112,13 +101,12 @@ public class NewsFragment extends ListFragment {
     
     public void startLoading() {
     	loadingDialog.show();
-    	currentlyLoading = true;
     	parseRss();
     }
     
     private void loadingSuccessful(boolean success, String errorMessage) {
+    	newActivity = false;
     	loadingDialog.dismiss();
-    	currentlyLoading = false;
     	if (!success && errorMessage != null) {
     		showError();
     		showErrorMessage(errorMessage);
@@ -164,9 +152,4 @@ public class NewsFragment extends ListFragment {
             listView.setVisibility(View.VISIBLE);
         }
     }
-    
-    public boolean isCurrentlyLoading() {
-    	return currentlyLoading;
-    }
-    
 }
