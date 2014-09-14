@@ -1,18 +1,11 @@
 package org.androidfromfrankfurt.archnews;
 
-import com.negusoft.holoaccent.activity.AccentActivity;
-
-import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
-import android.os.Build;
+
+import com.negusoft.holoaccent.activity.AccentActivity;
 
 public class NewsActivity extends AccentActivity {
 
@@ -28,8 +21,9 @@ public class NewsActivity extends AccentActivity {
     }
 
     @Override
-    protected void onResume() {
-    	super.onResume();
+    protected void onPause() {
+//    	super.onBackPressed();
+    	super.onPause();
     }
     
     @Override
