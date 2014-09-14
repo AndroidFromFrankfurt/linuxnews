@@ -49,7 +49,7 @@ public class NewsActivity extends AccentActivity {
 			NewsFragment.getInstance().startLoading();
 		}
         else if (id == R.id.action_settings) {
-        	Toast.makeText(getApplicationContext(), getResources().getString(R.string.feature_ideas), Toast.LENGTH_SHORT);
+        	Toast.makeText(getApplicationContext(), getResources().getString(R.string.feature_ideas), Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
