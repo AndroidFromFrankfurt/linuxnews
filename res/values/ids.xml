@@ -7,9 +7,9 @@
     <item name="wv_description" type="id"></item>
 
     <!-- Actionbar -->
-    <item name="action_settings" type="id"></item>
     <item name="action_reload" type="id"></item>
-
+	<item name="action_about" type="id"></item>
+    
     <!-- Layout -->
     <item name="btn_reload" type="id"></item>
     <item name="tv_errormessage" type="id"></item>    
