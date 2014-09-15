@@ -1,9 +1,9 @@
 package org.androidfromfrankfurt.archnews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.negusoft.holoaccent.activity.AccentActivity;
 
@@ -42,8 +42,9 @@ public class NewsActivity extends AccentActivity {
         if (id == R.id.action_reload) {
 			NewsFragment.getInstance().startLoading();
 		}
-        else if (id == R.id.action_settings) {
-        	Toast.makeText(getApplicationContext(), getResources().getString(R.string.feature_ideas), Toast.LENGTH_SHORT).show();
+        else if (id == R.id.action_about) {
+        	Intent intent = new Intent(this, AboutActivity.class);
+        	startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
