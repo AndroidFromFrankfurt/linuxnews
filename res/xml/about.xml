@@ -45,6 +45,11 @@
 		     android:summary="and all contributors for such an awesome operating system">
 			<intent android:action="android.intent.action.VIEW"
 			        android:data="https://www.archlinux.org/" />
+		<PreferenceScreen
+		     android:title="Sugesh"
+		     android:summary="for his helpful solution for a glitch I couldn't fix myself">
+			<intent android:action="android.intent.action.VIEW"
+			        android:data="http://stackoverflow.com/questions/25836886/listview-addheaderview-glitching-around-after-onresuming-activity" />
 		</PreferenceScreen>
 	</PreferenceCategory>
 </PreferenceScreen>

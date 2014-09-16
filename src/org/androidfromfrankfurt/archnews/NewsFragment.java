@@ -3,7 +3,6 @@ package org.androidfromfrankfurt.archnews;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.anim;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -13,8 +12,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import at.theengine.android.simple_rss2_android.RSSItem;
 import at.theengine.android.simple_rss2_android.SimpleRss2Parser;
 import at.theengine.android.simple_rss2_android.SimpleRss2ParserCallback;
@@ -23,8 +22,8 @@ import at.theengine.android.simple_rss2_android.SimpleRss2ParserCallback;
 public class NewsFragment extends ListFragment {
 
 	private static NewsFragment instance;
-	private View listView;
-//	private View headerView;
+	private ListView listView;
+	private View headerView;
 	private View errorView;
 	private TextView tvError;
 	private Button btnReload;
@@ -43,7 +42,13 @@ public class NewsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	View rootView = inflater.inflate(R.layout.fragment_news, container, false);
-//    	headerView = inflater.inflate(R.layout.header, null, false);
+    	listView = (ListView)rootView.findViewById(android.R.id.list);
+    	headerView = inflater.inflate(R.layout.header, null);
+//    	Using "null" as parameter here is not good coding behaviour, but when I use the following
+//    	headerView = inflater.inflate(R.layout.header, listView, false);
+//    	then some WebViews in the list items weirdly change their size after resuming the activity.
+//    	Thus I will just use null to not have this glitch until someone comes up with a better solution.
+    	listView.addHeaderView(headerView);
     	tvError = (TextView)rootView.findViewById(R.id.tv_errormessage);
     	btnReload = (Button)rootView.findViewById(R.id.btn_reload);
     	return rootView;
@@ -59,10 +64,6 @@ public class NewsFragment extends ListFragment {
     }
     
     private void initialize() {
-    	listView = getListView();
-//    	if(headerView != null) {
-//    		this.getListView().addHeaderView(headerView);
-//    	}
     	errorView = getListView().getEmptyView();
     	errorView.setVisibility(View.GONE);;
     	btnReload.setOnClickListener(new OnClickListener() {
