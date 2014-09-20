@@ -13,5 +13,6 @@
     
     <!-- Layout -->
     <item name="btn_reload" type="id"></item>
-    <item name="tv_errormessage" type="id"></item>    
+    <item name="tv_errormessage" type="id"></item>
+
 </resources>

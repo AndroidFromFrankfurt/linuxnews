@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import at.theengine.android.simple_rss2_android.RSSItem;
 import at.theengine.android.simple_rss2_android.SimpleRss2Parser;
 import at.theengine.android.simple_rss2_android.SimpleRss2ParserCallback;
@@ -83,7 +86,23 @@ public class NewsFragment extends ListFragment {
     
     private void parseRss() {
     	// ***Do not call this method directly! Use startLoading()!***
-    	SimpleRss2Parser newsParser = new SimpleRss2Parser("https://www.archlinux.org/feeds/news/",
+    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    	String feedUrl;
+    	System.out.println("GetPref "+sharedPrefs.getInt("lang", 0));
+    	int selectedLang = sharedPrefs.getInt("lang", 0);
+    	if(selectedLang == 0) {
+    		feedUrl = "https://www.archlinux.org/feeds/news/";
+    	}
+    	else if(selectedLang == 1) {
+    		feedUrl = "https://bbs.archlinux.de/extern.php?action=feed&fid=257&type=atom&order=posted&show=15";
+    	}
+    	else if(selectedLang == 2) {
+    		feedUrl = "https://archlinux.fr/feed";
+    	}
+    	else {
+    		feedUrl = "https://www.archlinux.org/feeds/news/";
+    	}
+    	SimpleRss2Parser newsParser = new SimpleRss2Parser(feedUrl,
     			new SimpleRss2ParserCallback() {
 			
 			@Override
