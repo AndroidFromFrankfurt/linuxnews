@@ -13,8 +13,7 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="Theme.HoloAccent.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="accentColor">@color/arch_blue</item>
 	</style>
 </resources>

@@ -24,12 +24,6 @@
 			<intent android:action="android.intent.action.VIEW"
 			        android:data="https://github.com/salendron/Simple-Rss2-Android" />
 		</PreferenceScreen>
-		<PreferenceScreen
-		     android:title="HoloAccent"
-		     android:summary="by NEGU Soft/Borja Lopez Urkidi (blurkidi)">
-			<intent android:action="android.intent.action.VIEW"
-			        android:data="https://github.com/negusoft/holoaccent" />
-		</PreferenceScreen>
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="The developer would like to thank:">
@@ -50,6 +44,12 @@
 		     android:summary="for his helpful solution for a glitch I couldn't fix myself">
 			<intent android:action="android.intent.action.VIEW"
 			        android:data="http://stackoverflow.com/questions/25836886/listview-addheaderview-glitching-around-after-onresuming-activity" />
+		</PreferenceScreen>
+		<PreferenceScreen
+		     android:title="TechRepublic"
+		     android:summary="for the idea of hiding the ActionBar on scroll">
+			<intent android:action="android.intent.action.VIEW"
+			        android:data="http://www.techrepublic.com/article/pro-tip-maximize-android-screen-real-estate-by-showing-and-hiding-the-action-bar/" />
 		</PreferenceScreen>
 	</PreferenceCategory>
 </PreferenceScreen>
