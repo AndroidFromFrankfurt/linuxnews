@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-        
 	<PreferenceCategory
             android:title="Author">
 		<Preference
@@ -45,6 +44,7 @@
 		     android:summary="and all contributors for such an awesome operating system">
 			<intent android:action="android.intent.action.VIEW"
 			        android:data="https://www.archlinux.org/" />
+		</PreferenceScreen>
 		<PreferenceScreen
 		     android:title="Sugesh"
 		     android:summary="for his helpful solution for a glitch I couldn't fix myself">
