@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -56,11 +56,16 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
         	
         	if (tvPubDate != null) {
         		// Too stupid to turn the RSS date into a local date - just delete some chars and it'll be fine
-        		tvPubDate.setText(o.getDate().substring(5, o.getDate().length()-15));
+        		try {
+        			tvPubDate.setText(o.getDate().substring(5, o.getDate().length()-15));
+        		}
+        		catch(Exception e) {
+        			tvPubDate.setText("");
+        		}
             }
         	
         	if (tvDescription != null) {
-            	tvDescription.loadData(o.getDescription(), "text/html", "UTF-8");
+            	tvDescription.loadDataWithBaseURL(null, o.getDescription(), "text/html", "UTF-8", null);
             	tvDescription.setBackgroundColor(0x00000000);
             }
         }
