@@ -1,37 +1,53 @@
 package org.androidfromfrankfurt.archnews;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.Toast;
 
-import com.negusoft.holoaccent.activity.AccentActivity;
-
-public class NewsActivity extends AccentActivity implements OnMenuItemClickListener {
+public class NewsActivity extends FragmentActivity implements OnMenuItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-            		.add(R.id.container, new NewsFragment())
-            		.commit();
-        }
+        ActionBar actionBar = getActionBar();
+        actionBar.setIcon(R.drawable.ic_arch);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
     }
 
-    @Override
-    protected void onPause() {
-//    	super.onBackPressed();
-    	super.onPause();
+    private class TabAdapter extends FragmentPagerAdapter {
+    	private TabAdapter(FragmentManager fragmentManager) {
+    		super(fragmentManager);
+    	}
+
+		@Override
+		public int getCount() {
+			return 1;
+		}
+		
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return getResources().getString(R.string.news);
+		}
+
+		@Override
+		public Fragment getItem(int arg0) {
+			return new NewsFragment();
+		}
     }
-    
+        
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
