@@ -1,8 +1,12 @@
 package org.androidfromfrankfurt.archnews;
 
+import java.util.Arrays;
+
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -65,9 +69,11 @@ public class NewsActivity extends FragmentActivity implements OnMenuItemClickLis
 			NewsFragment.getInstance().startLoading();
 		}
         else if(id == R.id.action_lang) {
-        	View langMenuView = findViewById(R.id.action_lang);
-        	PopupMenu langMenu = new PopupMenu(getApplicationContext(), langMenuView);
-    		langMenu.inflate(R.menu.lang);
+        	View langMenuItem = findViewById(R.id.action_lang);
+        	PopupMenu langMenu = new PopupMenu(getApplicationContext(), langMenuItem);
+    		for(int i=0; i < getResources().getStringArray(R.array.lang).length; i++) {
+    			langMenu.getMenu().add(getResources().getStringArray(R.array.lang)[i]);
+    		}
     		langMenu.setOnMenuItemClickListener(this);
     		langMenu.show();
         }
@@ -81,7 +87,21 @@ public class NewsActivity extends FragmentActivity implements OnMenuItemClickLis
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		Toast.makeText(getApplicationContext(), "workz", Toast.LENGTH_SHORT).show();
+		String[] langArray = getResources().getStringArray(R.array.lang);
+		// Get position of the language in the array
+		int posInArray = Arrays.asList(langArray).indexOf(item.getTitle());
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences.Editor editor = sharedPrefs.edit();
+		// Get previously selected language, 0 if nothing was selected yet
+		int oldLang = sharedPrefs.getInt("lang", 0);
+		System.out.println("SetPref "+posInArray);
+    	editor.putInt("lang", posInArray);
+		editor.commit();
+		
+		// If previously selected language is equal to the currently selected, do nothing. Else, reload.
+//		if(item.getItemId() != oldLang) {
+			NewsFragment.getInstance().startLoading();
+//		}
 		return false;
 	}
 }
