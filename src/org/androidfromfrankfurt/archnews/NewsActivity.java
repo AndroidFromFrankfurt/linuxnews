@@ -17,20 +17,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.Toast;
 
 public class NewsActivity extends FragmentActivity implements OnMenuItemClickListener {
 
+	private static NewsActivity mThis;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mThis = this;
         setContentView(R.layout.activity_news);
         ActionBar actionBar = getActionBar();
         actionBar.setIcon(R.drawable.ic_arch);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
     }
 
+    public static NewsActivity getThis() {
+    	return mThis;
+    }
+    
     private class TabAdapter extends FragmentPagerAdapter {
     	private TabAdapter(FragmentManager fragmentManager) {
     		super(fragmentManager);
