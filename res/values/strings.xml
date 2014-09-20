@@ -6,10 +6,10 @@
     <string name="app_author">Lesik Pidgornyy</string>
     <string name="title_activity_about">About</string>
     <string name="hello_world">Hello world!</string>
-    <string name="feature_ideas">Coming soon! If you have any ideas for this app, tell me! =)</string>
 
     <!-- Actionbar -->
     <string name="action_reload">Reload</string>
+    <string name="action_lang">Language</string>
 	<string name="action_about">About</string>
     
     <!-- Dialog -->
@@ -18,10 +18,10 @@
 
     <!-- Layout -->
     <string name="str_header">Latest News</string>
-    <string name="str_null"><![CDATA[<null>]]></string>
+    <string name="str_null"><![CDATA[<null>]]></string> <!-- TRANSLATORS: Leave this as is -->
     <string name="str_error">Couldn\'t fetch data.</string>
     <string name="str_retry">Retry</string>
-    <string name="str_readmore">Read more&#8230;</string>
+    <string name="str_readmore">Read more&#8230;</string> <!-- TRANSLATORS: Leave the &#8230; after your translation -->
     <string name="tell_dev">If you see one of our developers running around, tell them this:</string>
 
 </resources>

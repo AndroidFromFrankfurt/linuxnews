@@ -3,17 +3,24 @@
     tools:context="org.androidfromfrankfurt.archnews.NewsActivity" >
 
     <item
-        android:id="@+id/action_reload"
+        android:id="@id/action_reload"
         android:title="@string/action_reload"
         android:icon="@drawable/ic_action_reload"
         android:orderInCategory="50"
-        android:showAsAction="always"/>
+        android:showAsAction="always" />
+    
+    <item
+        android:id="@id/action_lang"
+        android:title="@string/action_lang"
+        android:icon="@drawable/ic_action_lang"
+        android:orderInCategory="70"
+        android:showAsAction="always" />
     
     <item
         android:id="@id/action_about"
         android:title="@string/action_about"
         android:icon="@drawable/ic_action_about"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom"/>
+        android:showAsAction="ifRoom" />
 
 </menu>
