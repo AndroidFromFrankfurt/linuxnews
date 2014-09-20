@@ -113,6 +113,18 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
     		// Spanish
     		feedUrl = "http://portada.archlinux-es.org/feed";
     	}
+    	else if(selectedLang == 4) {
+    		// Russian
+    		feedUrl = "http://archlinux.org.ru/news/feed/";
+    	}
+    	else if(selectedLang == 5) {
+    		// Italian
+    		feedUrl = "http://www.archlinux.it/forum/feed.php?f=15";
+    	}
+    	else if(selectedLang == 6) {
+    		// Chinese
+    		feedUrl = "http://www.archlinuxcn.org/feed/";
+    	}
     	else {
     		// Default (English)
     		feedUrl = "https://www.archlinux.org/feeds/news/";
@@ -194,8 +206,7 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		NewsActivity newsActivity = NewsActivity.getThis();
-		ActionBar actionBar = newsActivity.getActionBar();
+		ActionBar actionBar = NewsActivity.getThis().getActionBar();
 		if (mLastFirstVisibleItem < firstVisibleItem && actionBar.isShowing()) {
             actionBar.hide();
         }
