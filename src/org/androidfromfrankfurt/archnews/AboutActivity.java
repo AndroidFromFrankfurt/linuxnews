@@ -1,15 +1,8 @@
 package org.androidfromfrankfurt.archnews;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.preference.PreferenceFragment;
 
 public class AboutActivity extends Activity {
@@ -19,6 +12,7 @@ public class AboutActivity extends Activity {
 		super.onCreate(savedInstanceState);
 //		ActionBar actionBar = getActionBar();
 //		actionBar.setDisplayHomeAsUpEnabled(true);
+		getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 		setContentView(R.layout.activity_about);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new AboutFragment()).commit();
