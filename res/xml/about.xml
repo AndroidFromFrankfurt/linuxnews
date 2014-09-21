@@ -29,13 +29,13 @@
 		android:title="The developer would like to thank:">
 		<PreferenceScreen
 		     android:title="Linus Torvalds"
-		     android:summary="and all contributors for such a great kernel">
+		     android:summary="and all of the contributors for such a great kernel">
 			<intent android:action="android.intent.action.VIEW"
 			        android:data="https://www.kernel.org/" />
 		</PreferenceScreen>
 		<PreferenceScreen
-		     android:title="Aaron Griffin"
-		     android:summary="and all contributors for such an awesome operating system">
+		     android:title="Aaron Griffin and Judd Vinet"
+		     android:summary="and all of the contributors for such an awesome operating system">
 			<intent android:action="android.intent.action.VIEW"
 			        android:data="https://www.archlinux.org/" />
 		</PreferenceScreen>
