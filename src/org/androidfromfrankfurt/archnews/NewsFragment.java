@@ -5,8 +5,10 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
@@ -93,43 +95,7 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
     
     private void parseRss() {
     	// ***Do not call this method directly! Use startLoading()!***
-    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-    	String feedUrl;
-    	System.out.println("GetPref "+sharedPrefs.getInt("lang", 0));
-    	int selectedLang = sharedPrefs.getInt("lang", 0);
-    	if(selectedLang == 0) {
-    		// English
-    		feedUrl = "https://www.archlinux.org/feeds/news/";
-    	}
-    	else if(selectedLang == 1) {
-    		// German
-    		feedUrl = "https://bbs.archlinux.de/extern.php?action=feed&fid=257&type=atom&order=posted&show=15";
-    	}
-    	else if(selectedLang == 2) {
-    		// French
-    		feedUrl = "https://archlinux.fr/feed";
-    	}
-    	else if(selectedLang == 3) {
-    		// Spanish
-    		feedUrl = "http://portada.archlinux-es.org/feed";
-    	}
-    	else if(selectedLang == 4) {
-    		// Russian
-    		feedUrl = "http://archlinux.org.ru/news/feed/";
-    	}
-    	else if(selectedLang == 5) {
-    		// Italian
-    		feedUrl = "http://www.archlinux.it/forum/feed.php?f=15";
-    	}
-    	else if(selectedLang == 6) {
-    		// Chinese
-    		feedUrl = "http://www.archlinuxcn.org/feed/";
-    	}
-    	else {
-    		// Default (English)
-    		feedUrl = "https://www.archlinux.org/feeds/news/";
-    	}
-    	SimpleRss2Parser newsParser = new SimpleRss2Parser(feedUrl,
+    	SimpleRss2Parser newsParser = new SimpleRss2Parser(getLocalizedFeedUrl(),
     			new SimpleRss2ParserCallback() {
 			
 			@Override
@@ -149,6 +115,59 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
     public void startLoading() {
     	loadingDialog.show();
     	parseRss();
+    }
+    
+    private String getLocalizedFeedUrl() {
+    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+    	String feedUrl;
+    	System.out.println("GetPref "+sharedPrefs.getInt("lang", 0));
+    	int selectedLang = sharedPrefs.getInt("lang", 0);
+    	if(selectedLang == 0) {
+    		// English
+    		feedUrl = "https://www.archlinux.org/feeds/news/";
+    	}
+    	else if(selectedLang == 1) {
+    		// German
+    		feedUrl = "https://bbs.archlinux.de/extern.php?action=feed&fid=257&type=rss&order=posted&show=15";
+    	}
+    	else if(selectedLang == 2) {
+    		// French
+    		feedUrl = "https://archlinux.fr/feed";
+    	}
+    	else if(selectedLang == 3) {
+    		// Spanish
+    		feedUrl = "http://portada.archlinux-es.org/feed";
+    	}
+    	else if(selectedLang == 4) {
+    		// Russian
+    		feedUrl = "http://archlinux.org.ru/news/feed/";
+    	}
+    	else if(selectedLang == 5) {
+    		// Brasilian
+    		feedUrl = "http://www.archlinux-br.org/feeds/news/";
+    	}
+    	else if(selectedLang == 6) {
+    		// Chinese
+    		feedUrl = "http://www.archlinuxcn.org/feed/";
+    	}
+    	else if(selectedLang == 7) {
+    		// Romanian
+    		feedUrl = "http://archlinux.ro/feed";
+    	}
+    	else {
+    		// Default (English)
+    		feedUrl = "https://www.archlinux.org/feeds/news/";
+    	}
+    	final Uri feedUri = Uri.parse(feedUrl);
+    	headerView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, feedUri);
+				startActivity(intent);
+			}
+		});
+    	return feedUrl;
     }
     
     private void loadingSuccessful(boolean success, String errorMessage) {
