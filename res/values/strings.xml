@@ -2,7 +2,7 @@
 <resources>
 
     <!-- General -->
-    <string name="app_name">ArchNews</string>
+    <string name="app_name">LinuxNews</string>
     <string name="app_author">Lesik Pidgornyy</string>
     <string name="news">News</string>
     <string name="title_activity_about">About</string>

@@ -27,8 +27,9 @@ public class NewsActivity extends FragmentActivity implements OnMenuItemClickLis
         super.onCreate(savedInstanceState);
         mThis = this;
         setContentView(R.layout.activity_news);
-        ActionBar actionBar = getActionBar();
-        actionBar.setIcon(R.drawable.ic_arch);
+        // Commenting for now, fix later
+//        ActionBar actionBar = getActionBar();
+//        actionBar.setIcon(R.drawable.ic_arch);
         ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
     }

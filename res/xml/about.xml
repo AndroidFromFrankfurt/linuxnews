@@ -11,9 +11,9 @@
 	    android:title="About">
 		<PreferenceScreen
 		       android:title="Contribute on Github!"
-		       android:summary="ArchNews (open-archnews) is free and open source software (FOSS) and its code is available on Github">
+		       android:summary="LinuxNews (open-linuxnews) is free and open source software (FOSS) and its code is available on Github">
 			<intent android:action="android.intent.action.VIEW"
-			        android:data="https://github.com/Lesik/open-archnews" />
+			        android:data="https://github.com/AndroidFromFrankfurt/open-linuxnews" />
 		</PreferenceScreen>
 	</PreferenceCategory>
 	<PreferenceCategory
