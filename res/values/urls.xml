@@ -9,8 +9,13 @@
 	<string name="distro_url_arch_br">http://www.archlinux-br.org/feeds/news</string>
 	<string name="distro_url_arch_cn">http://www.archlinuxcn.org/feed</string>
 	<string name="distro_url_arch_ro">http://archlinux.ro/feed</string>
-	<string name="distro_url_debian">https://www.debian.org/News/news</string>
+	<string name="distro_url_debian">http://planet.debian.org/rss20.xml</string>
+	<string name="distro_url_fedora">http://planet.fedoraproject.org/rss10.xml</string>
+	<string name="distro_url_fedora_de">http://www.fedorausers.de/aggregator/rss</string>
+	<string name="distro_url_fedora_fr">http://www.fedora-fr.org/backend.php</string>
+	<string name="distro_url_fedora_es">http://www.fedora-es.com/aggregator/rss</string>
 	<string name="distro_url_gentoo">https://planet.gentoo.org/rss20.xml</string>
 	<string name="distro_url_parabola">https://www.parabola.nu/feeds/news</string>
+	<string name="distro_url_ubuntu">http://planet.ubuntu.com/rss20.xml</string>
 	
 </resources>

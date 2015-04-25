@@ -34,6 +34,7 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
 	private MultiStateListView listView;
 	private View headerView;
 	private TextView tvErrorMessage;
+	private int justLaunched = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,18 +99,50 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
     	Resources resources = getResources();
-    	String selectedDistro = resources.getStringArray(R.array.distros)[itemPosition];
-		String selectedLang = PreferenceManager.getDefaultSharedPreferences(this).getString(resources.getString(R.string.pref_key_language), "English");
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    	
+    	String selectedDistro;
+    	if(justLaunched == 1) {
+    		// if the app was just launched, get last choosen distro
+			selectedDistro = preferences.getString("distro", "Arch Linux");
+			System.out.println("first launch: " + selectedDistro);
+			justLaunched = 0;
+		}
+    	else {
+    		// if this isn't the first launch, get currently selected distro
+    		selectedDistro = resources.getStringArray(R.array.distros)[itemPosition];
+    		System.out.println(selectedDistro);
+    		preferences.edit().putString("distro", selectedDistro);
+    		System.out.println("settings put: " + preferences.getString("distro", "not defined"));
+    	}
+    	
+    	String selectedLang = preferences.getString(resources.getString(R.string.pref_key_language), "English");
     	Drawable distroIcon = null;
     	String distroFeedUrl;
     	int distroColor;
     	
-    	if(selectedDistro.equals("Debian")) {
+    	if(selectedDistro.equals("Debian Planet")) {
     		distroIcon = resources.getDrawable(R.drawable.ic_distro_debian);
     		distroColor = resources.getColor(R.color.distro_color_debian);
     		distroFeedUrl = resources.getString(R.string.distro_url_debian);
     	}
-    	else if(selectedDistro.equals("Gentoo")) {
+    	else if(selectedDistro.equals("Fedora")) {
+    		distroIcon = resources.getDrawable(R.drawable.ic_distro_fedora);
+    		distroColor = resources.getColor(R.color.distro_color_fedora);
+    		if(selectedLang.equals(resources.getStringArray(R.array.languages)[1])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_fedora_de);
+    		}
+    		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[2])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_fedora_fr);
+    		}
+    		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[3])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_fedora_es);
+    		}
+    		else {
+    			distroFeedUrl = resources.getString(R.string.distro_url_fedora);
+    		}
+    	}
+    	else if(selectedDistro.equals("Gentoo Planet")) {
     		distroIcon = resources.getDrawable(R.drawable.ic_distro_gentoo);
     		distroColor = resources.getColor(R.color.distro_color_gentoo);
     		distroFeedUrl = resources.getString(R.string.distro_url_gentoo);
@@ -119,14 +152,17 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     		distroColor = resources.getColor(R.color.distro_color_parabola);
     		distroFeedUrl = resources.getString(R.string.distro_url_parabola);
     	}
+    	else if(selectedDistro.equals("Ubuntu")) {
+    		distroIcon = resources.getDrawable(R.drawable.ic_distro_ubuntu);
+    		distroColor = resources.getColor(R.color.distro_color_ubuntu);
+    		distroFeedUrl = resources.getString(R.string.distro_url_ubuntu);
+    	}
     	else {
     		// default (else) is Arch Linux
     		distroIcon = resources.getDrawable(R.drawable.ic_distro_arch);
     		distroColor = resources.getColor(R.color.distro_color_arch);
-    		System.out.println(selectedLang);
     		if(selectedLang.equals(resources.getStringArray(R.array.languages)[1])) {
     			distroFeedUrl = resources.getString(R.string.distro_url_arch_de);
-    			System.out.println(resources.getString(R.string.distro_url_arch_de));
     		}
     		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[2])) {
     			distroFeedUrl = resources.getString(R.string.distro_url_arch_fr);

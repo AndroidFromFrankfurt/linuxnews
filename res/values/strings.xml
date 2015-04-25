@@ -19,15 +19,17 @@
     <string name="dlg_loading_title">One second please</string>
 
     <!-- Settings -->
+    <string name="pref_key_distro">distro</string>
+    
     <string name="pref_key_language">language</string>
     <string name="pref_def_language">English</string>
     <string name="pref_ttle_language">Language</string>
-    <string name="pref_smry_language">Keep in mind that not all distributions offer their news in the language you select. If the choosen language is not available, the app will fall back to English.</string>
+    <string name="pref_smry_language">Keep in mind that not all distributions offer their news in the language you select. If the chosen language is not available, the app will fall back to English.</string>
     
     <!-- Layout -->
     <string name="str_header">Latest News</string>
     <string name="str_null"><![CDATA[<null>]]></string> <!-- TRANSLATORS: Leave this as is -->
-    <string name="str_loading">Fetching...</string>
+    <string name="str_loading">Fetching&#8230;</string>
     <string name="str_error">Couldn\'t fetch data.</string>
     <string name="str_retry">Retry</string>
     <string name="str_readmore">Read more&#8230;</string> <!-- TRANSLATORS: Leave the &#8230; after your translation -->

@@ -4,7 +4,9 @@
     
     <color name="distro_color_arch">#204A87</color>
     <color name="distro_color_debian">#A40000</color>
+    <color name="distro_color_fedora">#3C6EB4</color>
     <color name="distro_color_gentoo">#4E4372</color>
     <color name="distro_color_parabola">#787DAB</color>
+    <color name="distro_color_ubuntu">#DD4814</color>
     
 </resources>
