@@ -10,7 +10,7 @@
 	<string name="distro_url_arch_cn">http://www.archlinuxcn.org/feed</string>
 	<string name="distro_url_arch_ro">http://archlinux.ro/feed</string>
 	<string name="distro_url_debian">http://planet.debian.org/rss20.xml</string>
-	<string name="distro_url_fedora">http://planet.fedoraproject.org/rss10.xml</string>
+	<string name="distro_url_fedora">http://planet.fedoraproject.org/rss20.xml</string>
 	<string name="distro_url_fedora_de">http://www.fedorausers.de/aggregator/rss</string>
 	<string name="distro_url_fedora_fr">http://www.fedora-fr.org/backend.php</string>
 	<string name="distro_url_fedora_es">http://www.fedora-es.com/aggregator/rss</string>
