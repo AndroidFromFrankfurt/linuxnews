@@ -83,7 +83,7 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     public boolean onOptionsItemSelected(MenuItem item) {
     	int id = item.getItemId();
         if(id == R.id.action_reload) {
-        	asd(getIndexFromDistro(getDistroFromPreferences()));
+        	initializeParsing(getIndexFromDistro(getDistroFromPreferences()));
         }
         else if(id == R.id.action_settings) {
         	Intent intent = new Intent(this, SettingsActivity.class);
@@ -108,10 +108,10 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-    	return asd(itemPosition);
+    	return initializeParsing(itemPosition);
 	}
 	
-	private boolean asd(int itemPosition) {
+	private boolean initializeParsing(int itemPosition) {
 		Resources resources = getResources();
     	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     	
