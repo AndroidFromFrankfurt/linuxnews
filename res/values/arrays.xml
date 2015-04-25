@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="languages">
+        <!-- the order is important! -->
         <item>English</item>
         <item>German</item>
         <item>French</item>
@@ -13,8 +14,10 @@
     
     <string-array name="distros">
         <item>Arch Linux</item>
-        <item>Debian</item>
-        <item>Gentoo</item>
+        <item>Debian Planet</item>
+        <item>Fedora</item>
+        <item>Gentoo Planet</item>
         <item>Parabola</item>
+        <item>Ubuntu Planet</item>
     </string-array>
 </resources>
