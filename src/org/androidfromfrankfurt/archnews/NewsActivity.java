@@ -80,7 +80,9 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
         	
         }
         else if(id == R.id.action_settings) {
-        	
+        	Intent intent = new Intent(this, SettingsActivity.class);
+        	startActivity(intent);
+            return true;        	
         }
         else if(id == R.id.action_about) {
         	Intent intent = new Intent(this, AboutActivity.class);

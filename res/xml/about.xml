@@ -24,20 +24,41 @@
 			<intent android:action="android.intent.action.VIEW"
 			        android:data="https://github.com/salendron/Simple-Rss2-Android" />
 		</PreferenceScreen>
+		<PreferenceScreen
+		     android:title="Android-MultiStateListView"
+		     android:summary="by Jens Driller (jenzz)">
+			<intent android:action="android.intent.action.VIEW"
+			        android:data="https://github.com/jenzz/Android-MultiStateListView" />
+		</PreferenceScreen>
 	</PreferenceCategory>
 	<PreferenceCategory
-		android:title="The developer would like to thank:">
+		android:title="Other resources">
 		<PreferenceScreen
-		     android:title="Linus Torvalds"
-		     android:summary="and all of the contributors for such a great kernel">
+		     android:title="Tango Desktop Project"
+		     android:summary="and their beautiful design guidelines">
 			<intent android:action="android.intent.action.VIEW"
-			        android:data="https://www.kernel.org/" />
+			        android:data="http://tango.freedesktop.org/" />
 		</PreferenceScreen>
 		<PreferenceScreen
-		     android:title="Aaron Griffin and Judd Vinet"
-		     android:summary="and all of the contributors for such an awesome operating system">
+		     android:title="Baku icon theme"
+		     android:summary="by Rob Spoel (robrene)">
 			<intent android:action="android.intent.action.VIEW"
-			        android:data="https://www.archlinux.org/" />
+			        android:data="https://robrene.deviantart.com/art/Baku-icon-theme-145678957" />
+		</PreferenceScreen>
+	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="The developer would like to thank">
+		<PreferenceScreen
+		     android:title="All contributors"
+		     android:summary="to this app, which I can not name all by name">
+			<intent android:action="android.intent.action.VIEW"
+			        android:data="https://github.com/AndroidFromFrankfurt/open-linuxnews/graphs/contributors" />
+		</PreferenceScreen>
+		<PreferenceScreen
+		     android:title="Linus Torvalds"
+		     android:summary="and all of the contributors to the kernel and all the Linux distributions">
+			<intent android:action="android.intent.action.VIEW"
+			        android:data="https://www.kernel.org/" />
 		</PreferenceScreen>
 		<PreferenceScreen
 		     android:title="Sugesh"

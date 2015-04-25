@@ -1,13 +1,31 @@
 package org.androidfromfrankfurt.archnews;
 
-public class SettingsActivity {
+import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.preference.PreferenceFragment;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+public class SettingsActivity extends Activity {
 
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		setContentView(R.layout.activity_about);
+		if (savedInstanceState == null) {
+			getFragmentManager().beginTransaction().add(R.id.container, new SettingsFragment()).commit();
+		}
 	}
 
+	public static class SettingsFragment extends PreferenceFragment {
+
+		public SettingsFragment() {
+		}
+
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			addPreferencesFromResource(R.xml.settings);
+		}
+	}
 }
