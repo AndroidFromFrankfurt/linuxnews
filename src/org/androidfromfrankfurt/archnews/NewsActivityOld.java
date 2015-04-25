@@ -103,7 +103,7 @@ public class NewsActivityOld extends FragmentActivity implements OnMenuItemClick
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		String[] langArray = getResources().getStringArray(R.array.lang);
+		String[] langArray = getResources().getStringArray(R.array.languages);
 		// Get position of the language in the array
 		int posInArray = Arrays.asList(langArray).indexOf(item.getTitle());
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

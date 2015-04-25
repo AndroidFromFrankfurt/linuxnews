@@ -2,5 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 	<PreferenceCategory
             android:title="Bla">
+		<ListPreference 
+		    android:key="@string/pref_key_language"
+		    android:title="@string/pref_ttle_language"
+		    android:summary="@string/pref_smry_language"
+		    android:entries="@array/languages"
+		    android:entryValues="@array/languages" />
 	</PreferenceCategory>
 </PreferenceScreen>

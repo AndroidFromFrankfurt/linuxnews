@@ -13,7 +13,7 @@ public class AboutActivity extends Activity {
 //		ActionBar actionBar = getActionBar();
 //		actionBar.setDisplayHomeAsUpEnabled(true);
 		getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-		setContentView(R.layout.activity_about);
+		setContentView(R.layout.activity_xml);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new AboutFragment()).commit();
 		}
