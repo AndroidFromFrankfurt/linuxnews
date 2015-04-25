@@ -8,7 +8,7 @@
 
     <!-- Actionbar -->
     <item name="action_reload" type="id"></item>
-    <item name="action_lang" type="id"></item>
+    <item name="action_settings" type="id"></item>
     <item name="action_about" type="id"></item>
     
     <!-- Layout -->

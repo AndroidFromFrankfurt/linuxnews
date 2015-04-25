@@ -84,15 +84,15 @@ public class NewsActivityOld extends FragmentActivity implements OnMenuItemClick
         if(id == R.id.action_reload) {
 			NewsFragment.getInstance().startLoading();
 		}
-        else if(id == R.id.action_lang) {
-        	View langMenuItem = findViewById(R.id.action_lang);
-        	PopupMenu langMenu = new PopupMenu(getApplicationContext(), langMenuItem);
-    		for(int i=0; i < getResources().getStringArray(R.array.lang).length; i++) {
-    			langMenu.getMenu().add(getResources().getStringArray(R.array.lang)[i]);
-    		}
-    		langMenu.setOnMenuItemClickListener(this);
-    		langMenu.show();
-        }
+//        else if(id == R.id.action_lang) {
+//        	View langMenuItem = findViewById(R.id.action_lang);
+//        	PopupMenu langMenu = new PopupMenu(getApplicationContext(), langMenuItem);
+//    		for(int i=0; i < getResources().getStringArray(R.array.lang).length; i++) {
+//    			langMenu.getMenu().add(getResources().getStringArray(R.array.lang)[i]);
+//    		}
+//    		langMenu.setOnMenuItemClickListener(this);
+//    		langMenu.show();
+//        }
         else if(id == R.id.action_about) {
         	Intent intent = new Intent(this, AboutActivity.class);
         	startActivity(intent);

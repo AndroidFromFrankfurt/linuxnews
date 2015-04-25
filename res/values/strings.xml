@@ -10,7 +10,7 @@
 
     <!-- Actionbar -->
     <string name="action_reload">Reload</string>
-    <string name="action_lang">Language</string>
+    <string name="action_settings">Settings</string>
 	<string name="action_about">About</string>
     
     <!-- Dialog -->

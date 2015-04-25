@@ -6,14 +6,16 @@ import java.util.List;
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.app.ListActivity;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
@@ -50,7 +52,7 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
 		getListView().setLayoutParams(listViewParams);
 		
 		// ListView Header
-		headerView = getLayoutInflater().inflate(R.layout.header, null);
+		headerView = getLayoutInflater().inflate(R.layout.header, null, false);
 		getListView().addHeaderView(headerView);
 		
 		// ActionBar
@@ -69,6 +71,23 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.news, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	int id = item.getItemId();
+        if(id == R.id.action_reload) {
+        	
+        }
+        else if(id == R.id.action_settings) {
+        	
+        }
+        else if(id == R.id.action_about) {
+        	Intent intent = new Intent(this, AboutActivity.class);
+        	startActivity(intent);
+            return true;
+        }
+    	return super.onOptionsItemSelected(item);
     }
 
 	@Override
@@ -93,6 +112,7 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     		distroFeedUrl = resources.getString(R.string.distro_url_gentoo);
     	}
     	else if(currentDistro.equals("Parabola")) {
+    		distroIcon = resources.getDrawable(R.drawable.ic_distro_linux);
     		distroColor = resources.getColor(R.color.distro_color_parabola);
     		distroFeedUrl = resources.getString(R.string.distro_url_parabola);
     	}
@@ -102,11 +122,19 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     		distroColor = resources.getColor(R.color.distro_color_arch);
     		distroFeedUrl = resources.getString(R.string.distro_url_arch);
     	}
-    	if(distroIcon != null) {
-    		getActionBar().setIcon(distroIcon);
-    	} 
-    	getActionBar().setBackgroundDrawable(new ColorDrawable(distroColor));
+		getActionBar().setIcon(distroIcon);
+		// Doesn't look good, disable for now
+//    	getActionBar().setBackgroundDrawable(new ColorDrawable(distroColor));
 		parseRss(distroFeedUrl);
+		final Uri distroFeedUri = Uri.parse(distroFeedUrl);
+		headerView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, distroFeedUri);
+				startActivity(intent);
+			}
+		});
     	return true;
 	}
 	
