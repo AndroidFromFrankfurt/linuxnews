@@ -66,10 +66,7 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         ArrayAdapter<CharSequence> distroAdapter = ArrayAdapter.createFromResource(this, R.array.distros, R.layout.nav_spinner_item);
         actionBar.setListNavigationCallbacks(distroAdapter, this);
-        actionBar.setSelectedNavigationItem(Arrays.asList(getResources()
-        		.getStringArray(R.array.distros))
-        		.indexOf(PreferenceManager.getDefaultSharedPreferences(this)
-        				.getString(getResources().getString(R.string.pref_key_distro), "Arch Linux")));
+        actionBar.setSelectedNavigationItem(getIndexFromDistro(getDistroFromPreferences()));
         
         // Layout
         tvErrorMessage = (TextView)listView.getErrorView().findViewById(R.id.tv_errormessage);
@@ -86,7 +83,7 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     public boolean onOptionsItemSelected(MenuItem item) {
     	int id = item.getItemId();
         if(id == R.id.action_reload) {
-        	
+        	asd(getIndexFromDistro(getDistroFromPreferences()));
         }
         else if(id == R.id.action_settings) {
         	Intent intent = new Intent(this, SettingsActivity.class);
@@ -101,9 +98,21 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     	return super.onOptionsItemSelected(item);
     }
 
+    private int getIndexFromDistro(String distro) {
+    	return Arrays.asList(getResources().getStringArray(R.array.distros)).indexOf(distro);
+    }
+    
+    private String getDistroFromPreferences() {
+    	return PreferenceManager.getDefaultSharedPreferences(this).getString(getResources().getString(R.string.pref_key_distro), "Arch Linux");
+    }
+
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-    	Resources resources = getResources();
+    	return asd(itemPosition);
+	}
+	
+	private boolean asd(int itemPosition) {
+		Resources resources = getResources();
     	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     	
     	String selectedDistro = resources.getStringArray(R.array.distros)[itemPosition];
@@ -192,7 +201,7 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
 				startActivity(intent);
 			}
 		});
-    	return true;
+		return true;
 	}
 	
     private void parseRss(String urlToParse) {
