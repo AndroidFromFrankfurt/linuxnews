@@ -1,6 +1,7 @@
 package org.androidfromfrankfurt.archnews;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.util.LangUtils;
@@ -65,6 +66,10 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         ArrayAdapter<CharSequence> distroAdapter = ArrayAdapter.createFromResource(this, R.array.distros, R.layout.nav_spinner_item);
         actionBar.setListNavigationCallbacks(distroAdapter, this);
+        actionBar.setSelectedNavigationItem(Arrays.asList(getResources()
+        		.getStringArray(R.array.distros))
+        		.indexOf(PreferenceManager.getDefaultSharedPreferences(this)
+        				.getString(getResources().getString(R.string.pref_key_distro), "Arch Linux")));
         
         // Layout
         tvErrorMessage = (TextView)listView.getErrorView().findViewById(R.id.tv_errormessage);
@@ -101,20 +106,8 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     	Resources resources = getResources();
     	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     	
-    	String selectedDistro;
-    	if(justLaunched == 1) {
-    		// if the app was just launched, get last choosen distro
-			selectedDistro = preferences.getString("distro", "Arch Linux");
-			System.out.println("first launch: " + selectedDistro);
-			justLaunched = 0;
-		}
-    	else {
-    		// if this isn't the first launch, get currently selected distro
-    		selectedDistro = resources.getStringArray(R.array.distros)[itemPosition];
-    		System.out.println(selectedDistro);
-    		preferences.edit().putString("distro", selectedDistro);
-    		System.out.println("settings put: " + preferences.getString("distro", "not defined"));
-    	}
+    	String selectedDistro = resources.getStringArray(R.array.distros)[itemPosition];
+		preferences.edit().putString("distro", selectedDistro).commit();
     	
     	String selectedLang = preferences.getString(resources.getString(R.string.pref_key_language), "English");
     	Drawable distroIcon = null;
@@ -152,7 +145,7 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     		distroColor = resources.getColor(R.color.distro_color_parabola);
     		distroFeedUrl = resources.getString(R.string.distro_url_parabola);
     	}
-    	else if(selectedDistro.equals("Ubuntu")) {
+    	else if(selectedDistro.equals("Ubuntu Planet")) {
     		distroIcon = resources.getDrawable(R.drawable.ic_distro_ubuntu);
     		distroColor = resources.getColor(R.color.distro_color_ubuntu);
     		distroFeedUrl = resources.getString(R.string.distro_url_ubuntu);
