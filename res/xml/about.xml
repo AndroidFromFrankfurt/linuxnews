@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-	<PreferenceCategory
+	<!--PreferenceCategory
             android:title="Author">
 		<Preference
 		    android:layout="@layout/about_author"
 		    android:key="author_fragment"
 		    android:selectable="false" />
-	</PreferenceCategory>
+	</PreferenceCategory-->
 	<PreferenceCategory
 	    android:title="About">
 		<PreferenceScreen
 		       android:title="Contribute on Github!"
-		       android:summary="LinuxNews (open-linuxnews) is free and open source software (FOSS) and its code is available on Github">
+		       android:summary="Linux News (open-linuxnews) is free and open source software (FOSS) and its code is available on Github">
 			<intent android:action="android.intent.action.VIEW"
 			        android:data="https://github.com/AndroidFromFrankfurt/open-linuxnews" />
 		</PreferenceScreen>
