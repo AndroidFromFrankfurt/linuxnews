@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-	<string name="distro_url_arch">https://www.archlinux.org/feeds/news/</string>
+	<string name="distro_url_arch">https://www.archlinux.org/feeds/news</string>
+	<string name="distro_url_arch_de">https://bbs.archlinux.de/extern.php?action=feed&amp;fid=257&amp;type=rss&amp;order=posted&amp;show=15</string>
+	<string name="distro_url_arch_fr">https://archlinux.fr/feed</string>
+	<string name="distro_url_arch_es">http://portada.archlinux-es.org/feed</string>
+	<string name="distro_url_arch_ru">http://archlinux.org.ru/news/feed</string>
+	<string name="distro_url_arch_br">http://www.archlinux-br.org/feeds/news</string>
+	<string name="distro_url_arch_cn">http://www.archlinuxcn.org/feed</string>
+	<string name="distro_url_arch_ro">http://archlinux.ro/feed</string>
 	<string name="distro_url_debian">https://www.debian.org/News/news</string>
 	<string name="distro_url_gentoo">https://planet.gentoo.org/rss20.xml</string>
-	<string name="distro_url_parabola">https://www.parabola.nu/feeds/news/</string>
+	<string name="distro_url_parabola">https://www.parabola.nu/feeds/news</string>
 	
 </resources>

@@ -11,7 +11,7 @@ public class SettingsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-		setContentView(R.layout.activity_about);
+		setContentView(R.layout.activity_xml);
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction().add(R.id.container, new SettingsFragment()).commit();
 		}

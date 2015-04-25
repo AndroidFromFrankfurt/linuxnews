@@ -3,15 +3,18 @@ package org.androidfromfrankfurt.archnews;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.util.LangUtils;
+
 import android.app.ActionBar;
 import android.app.ActionBar.OnNavigationListener;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,26 +97,24 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		// get current distro
-		String currentDistro = getResources().getStringArray(R.array.distros)[itemPosition];
-//		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-//    	int selectedLang = sharedPrefs.getInt("lang", 0);
-    	
     	Resources resources = getResources();
+    	String selectedDistro = resources.getStringArray(R.array.distros)[itemPosition];
+		String selectedLang = PreferenceManager.getDefaultSharedPreferences(this).getString(resources.getString(R.string.pref_key_language), "English");
     	Drawable distroIcon = null;
     	String distroFeedUrl;
     	int distroColor;
-    	if(currentDistro.equals("Debian")) {
+    	
+    	if(selectedDistro.equals("Debian")) {
     		distroIcon = resources.getDrawable(R.drawable.ic_distro_debian);
     		distroColor = resources.getColor(R.color.distro_color_debian);
     		distroFeedUrl = resources.getString(R.string.distro_url_debian);
     	}
-    	else if(currentDistro.equals("Gentoo")) {
+    	else if(selectedDistro.equals("Gentoo")) {
     		distroIcon = resources.getDrawable(R.drawable.ic_distro_gentoo);
     		distroColor = resources.getColor(R.color.distro_color_gentoo);
     		distroFeedUrl = resources.getString(R.string.distro_url_gentoo);
     	}
-    	else if(currentDistro.equals("Parabola")) {
+    	else if(selectedDistro.equals("Parabola")) {
     		distroIcon = resources.getDrawable(R.drawable.ic_distro_linux);
     		distroColor = resources.getColor(R.color.distro_color_parabola);
     		distroFeedUrl = resources.getString(R.string.distro_url_parabola);
@@ -122,7 +123,32 @@ public class NewsActivity extends ListActivity implements OnNavigationListener {
     		// default (else) is Arch Linux
     		distroIcon = resources.getDrawable(R.drawable.ic_distro_arch);
     		distroColor = resources.getColor(R.color.distro_color_arch);
-    		distroFeedUrl = resources.getString(R.string.distro_url_arch);
+    		System.out.println(selectedLang);
+    		if(selectedLang.equals(resources.getStringArray(R.array.languages)[1])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_arch_de);
+    			System.out.println(resources.getString(R.string.distro_url_arch_de));
+    		}
+    		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[2])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_arch_fr);
+    		}
+    		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[3])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_arch_es);
+    		}
+    		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[4])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_arch_ru);
+    		}
+    		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[5])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_arch_br);
+    		}
+    		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[6])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_arch_cn);
+    		}
+    		else if(selectedLang.equals(resources.getStringArray(R.array.languages)[7])) {
+    			distroFeedUrl = resources.getString(R.string.distro_url_arch_ro);
+    		}
+    		else {
+    			distroFeedUrl = resources.getString(R.string.distro_url_arch);
+    		}
     	}
 		getActionBar().setIcon(distroIcon);
 		// Doesn't look good, disable for now
