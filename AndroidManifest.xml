@@ -27,6 +27,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="org.androidfromfrankfurt.archnews.NewsActivity">
+			
+			<meta-data
+	            android:name="android.support.PARENT_ACTIVITY"
+	            android:value="org.androidfromfrankfurt.archnews.NewsActivity" />
+            
+        </activity>
+		<activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
             android:parentActivityName="org.androidfromfrankfurt.archnews.NewsActivity">
