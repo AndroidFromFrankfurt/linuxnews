@@ -10,4 +10,11 @@
         <item>Chinese</item>
         <item>Romanian</item>
     </string-array>
+    
+    <string-array name="distros">
+        <item>Arch Linux</item>
+        <item>Debian</item>
+        <item>Gentoo</item>
+        <item>Parabola</item>
+    </string-array>
 </resources>

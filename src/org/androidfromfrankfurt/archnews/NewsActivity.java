@@ -1,64 +1,69 @@
 package org.androidfromfrankfurt.archnews;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.ActionBar;
-import android.content.Intent;
+import android.app.ActionBar.OnNavigationListener;
+import android.app.ListActivity;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
+import android.widget.ListView;
+import android.widget.TextView;
+import at.theengine.android.simple_rss2_android.RSSItem;
+import at.theengine.android.simple_rss2_android.SimpleRss2Parser;
+import at.theengine.android.simple_rss2_android.SimpleRss2ParserCallback;
 
-public class NewsActivity extends FragmentActivity implements OnMenuItemClickListener {
+public class NewsActivity extends ListActivity implements OnNavigationListener {
 
-	private static NewsActivity mThis;
+	private ActionBar actionBar;
+	private MultiStateListView listView;
+	private View headerView;
+	private TextView tvErrorMessage;
 	
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mThis = this;
-        setContentView(R.layout.activity_news);
-        // Commenting for now, fix later
-//        ActionBar actionBar = getActionBar();
-//        actionBar.setIcon(R.drawable.ic_arch);
-        ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
-        viewPager.setAdapter(new TabAdapter(getSupportFragmentManager()));
-    }
-
-    public static NewsActivity getThis() {
-    	return mThis;
-    }
-    
-    private class TabAdapter extends FragmentPagerAdapter {
-    	private TabAdapter(FragmentManager fragmentManager) {
-    		super(fragmentManager);
-    	}
-
-		@Override
-		public int getCount() {
-			return 1;
-		}
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		
-		@Override
-		public CharSequence getPageTitle(int position) {
-			return getResources().getString(R.string.news);
-		}
-
-		@Override
-		public Fragment getItem(int arg0) {
-			return new NewsFragment();
-		}
-    }
+		// ListView
+		listView = new MultiStateListView.Builder(this)
+			.loadingView(R.layout.loading)
+			.errorView(R.layout.error)
+			.build();
+		listView.setId(android.R.id.list);
+		listView.setScrollBarStyle(ListView.SCROLLBARS_OUTSIDE_INSET);
+		listView.setDivider(null);
+		listView.setDividerHeight(10);
+		setContentView(listView);
+		
+		LayoutParams listViewParams = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		listViewParams.setMargins(20, 0, 0, 0);
+		getListView().setLayoutParams(listViewParams);
+		
+		// ListView Header
+		headerView = getLayoutInflater().inflate(R.layout.header, null);
+		getListView().addHeaderView(headerView);
+		
+		// ActionBar
+		actionBar = getActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        ArrayAdapter<CharSequence> distroAdapter = ArrayAdapter.createFromResource(this, R.array.distros, R.layout.nav_spinner_item);
+        actionBar.setListNavigationCallbacks(distroAdapter, this);
         
+        // Layout
+        tvErrorMessage = (TextView)listView.getErrorView().findViewById(R.id.tv_errormessage);
+	}
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -66,49 +71,71 @@ public class NewsActivity extends FragmentActivity implements OnMenuItemClickLis
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if(id == R.id.action_reload) {
-			NewsFragment.getInstance().startLoading();
-		}
-        else if(id == R.id.action_lang) {
-        	View langMenuItem = findViewById(R.id.action_lang);
-        	PopupMenu langMenu = new PopupMenu(getApplicationContext(), langMenuItem);
-    		for(int i=0; i < getResources().getStringArray(R.array.lang).length; i++) {
-    			langMenu.getMenu().add(getResources().getStringArray(R.array.lang)[i]);
-    		}
-    		langMenu.setOnMenuItemClickListener(this);
-    		langMenu.show();
-        }
-        else if(id == R.id.action_about) {
-        	Intent intent = new Intent(this, AboutActivity.class);
-        	startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 	@Override
-	public boolean onMenuItemClick(MenuItem item) {
-		String[] langArray = getResources().getStringArray(R.array.lang);
-		// Get position of the language in the array
-		int posInArray = Arrays.asList(langArray).indexOf(item.getTitle());
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		SharedPreferences.Editor editor = sharedPrefs.edit();
-		// Get previously selected language, 0 if nothing was selected yet
-		int oldLang = sharedPrefs.getInt("lang", 0);
-		System.out.println("SetPref "+posInArray);
-    	editor.putInt("lang", posInArray);
-		editor.commit();
-		
-		// If previously selected language is equal to the currently selected, do nothing. Else, reload.
-//		if(item.getItemId() != oldLang) {
-			NewsFragment.getInstance().startLoading();
-//		}
-		return false;
+	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+		// get current distro
+		String currentDistro = getResources().getStringArray(R.array.distros)[itemPosition];
+//		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+//    	int selectedLang = sharedPrefs.getInt("lang", 0);
+    	
+    	Resources resources = getResources();
+    	Drawable distroIcon = null;
+    	String distroFeedUrl;
+    	int distroColor;
+    	if(currentDistro.equals("Debian")) {
+    		distroIcon = resources.getDrawable(R.drawable.ic_distro_debian);
+    		distroColor = resources.getColor(R.color.distro_color_debian);
+    		distroFeedUrl = resources.getString(R.string.distro_url_debian);
+    	}
+    	else if(currentDistro.equals("Gentoo")) {
+    		distroIcon = resources.getDrawable(R.drawable.ic_distro_gentoo);
+    		distroColor = resources.getColor(R.color.distro_color_gentoo);
+    		distroFeedUrl = resources.getString(R.string.distro_url_gentoo);
+    	}
+    	else if(currentDistro.equals("Parabola")) {
+    		distroColor = resources.getColor(R.color.distro_color_parabola);
+    		distroFeedUrl = resources.getString(R.string.distro_url_parabola);
+    	}
+    	else {
+    		// default (else) is Arch Linux
+    		distroIcon = resources.getDrawable(R.drawable.ic_distro_arch);
+    		distroColor = resources.getColor(R.color.distro_color_arch);
+    		distroFeedUrl = resources.getString(R.string.distro_url_arch);
+    	}
+    	if(distroIcon != null) {
+    		getActionBar().setIcon(distroIcon);
+    	} 
+    	getActionBar().setBackgroundDrawable(new ColorDrawable(distroColor));
+		parseRss(distroFeedUrl);
+    	return true;
 	}
+	
+    private void parseRss(String urlToParse) {
+    	// show loading dialog
+    	listView.setAdapter(null);
+		listView.showLoadingView();
+				
+		SimpleRss2Parser newsParser = new SimpleRss2Parser(urlToParse,
+    			new SimpleRss2ParserCallback() {
+			
+			@Override
+			public void onFeedParsed(List<RSSItem> arg0) {
+				setListAdapter(new NewsAdapter(getApplicationContext(), R.layout.news_item, (ArrayList<RSSItem>) arg0));
+				loadingFinished(true, null);
+			}
+			
+			@Override
+			public void onError(Exception arg0) {
+				listView.showErrorView();
+	    		tvErrorMessage.setText(arg0.getMessage());
+			}
+		});
+    	newsParser.parseAsync();
+    }
+    
+    private void loadingFinished(boolean successful, String errorMessage) {
+    	if (!successful && errorMessage != null) {
+    		
+    	}
+    }
 }
