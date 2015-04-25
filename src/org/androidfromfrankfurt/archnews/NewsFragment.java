@@ -41,6 +41,7 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
 	private boolean listVisible;
 	private boolean newActivity = true;
 	private int mLastFirstVisibleItem;
+	private String feedUrl;
 	
     public NewsFragment() {
     	instance = this;
@@ -63,6 +64,9 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
     	listView.setOnScrollListener(this);
     	tvError = (TextView)rootView.findViewById(R.id.tv_errormessage);
     	btnReload = (Button)rootView.findViewById(R.id.btn_reload);
+    	
+    	Bundle args = getArguments();
+//    	feedUrl = args.getInt();
     	return rootView;
     }
     
@@ -77,7 +81,7 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
     
     private void initialize() {
     	errorView = getListView().getEmptyView();
-    	errorView.setVisibility(View.GONE);;
+    	errorView.setVisibility(View.GONE);
     	btnReload.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -95,7 +99,8 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
     
     private void parseRss() {
     	// ***Do not call this method directly! Use startLoading()!***
-    	SimpleRss2Parser newsParser = new SimpleRss2Parser(getLocalizedFeedUrl(),
+//    	SimpleRss2Parser newsParser = new SimpleRss2Parser(getLocalizedFeedUrl(),
+    	SimpleRss2Parser newsParser = new SimpleRss2Parser(feedUrl,
     			new SimpleRss2ParserCallback() {
 			
 			@Override
@@ -118,56 +123,57 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
     }
     
     private String getLocalizedFeedUrl() {
-    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-    	String feedUrl;
-    	System.out.println("GetPref "+sharedPrefs.getInt("lang", 0));
-    	int selectedLang = sharedPrefs.getInt("lang", 0);
-    	if(selectedLang == 0) {
-    		// English
-    		feedUrl = "https://www.archlinux.org/feeds/news/";
-    	}
-    	else if(selectedLang == 1) {
-    		// German
-    		feedUrl = "https://bbs.archlinux.de/extern.php?action=feed&fid=257&type=rss&order=posted&show=15";
-    	}
-    	else if(selectedLang == 2) {
-    		// French
-    		feedUrl = "https://archlinux.fr/feed";
-    	}
-    	else if(selectedLang == 3) {
-    		// Spanish
-    		feedUrl = "http://portada.archlinux-es.org/feed";
-    	}
-    	else if(selectedLang == 4) {
-    		// Russian
-    		feedUrl = "http://archlinux.org.ru/news/feed/";
-    	}
-    	else if(selectedLang == 5) {
-    		// Brasilian
-    		feedUrl = "http://www.archlinux-br.org/feeds/news/";
-    	}
-    	else if(selectedLang == 6) {
-    		// Chinese
-    		feedUrl = "http://www.archlinuxcn.org/feed/";
-    	}
-    	else if(selectedLang == 7) {
-    		// Romanian
-    		feedUrl = "http://archlinux.ro/feed";
-    	}
-    	else {
-    		// Default (English)
-    		feedUrl = "https://www.archlinux.org/feeds/news/";
-    	}
-    	final Uri feedUri = Uri.parse(feedUrl);
-    	headerView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent(Intent.ACTION_VIEW, feedUri);
-				startActivity(intent);
-			}
-		});
-    	return feedUrl;
+//    	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//    	String feedUrl;
+//    	System.out.println("GetPref "+sharedPrefs.getInt("lang", 0));
+//    	int selectedLang = sharedPrefs.getInt("lang", 0);
+//    	if(selectedLang == 0) {
+//    		// English
+//    		feedUrl = "https://www.archlinux.org/feeds/news/";
+//    	}
+//    	else if(selectedLang == 1) {
+//    		// German
+//    		feedUrl = "https://bbs.archlinux.de/extern.php?action=feed&fid=257&type=rss&order=posted&show=15";
+//    	}
+//    	else if(selectedLang == 2) {
+//    		// French
+//    		feedUrl = "https://archlinux.fr/feed";
+//    	}
+//    	else if(selectedLang == 3) {
+//    		// Spanish
+//    		feedUrl = "http://portada.archlinux-es.org/feed";
+//    	}
+//    	else if(selectedLang == 4) {
+//    		// Russian
+//    		feedUrl = "http://archlinux.org.ru/news/feed/";
+//    	}
+//    	else if(selectedLang == 5) {
+//    		// Brasilian
+//    		feedUrl = "http://www.archlinux-br.org/feeds/news/";
+//    	}
+//    	else if(selectedLang == 6) {
+//    		// Chinese
+//    		feedUrl = "http://www.archlinuxcn.org/feed/";
+//    	}
+//    	else if(selectedLang == 7) {
+//    		// Romanian
+//    		feedUrl = "http://archlinux.ro/feed";
+//    	}
+//    	else {
+//    		// Default (English)
+//    		feedUrl = "https://www.archlinux.org/feeds/news/";
+//    	}
+//    	final Uri feedUri = Uri.parse(feedUrl);
+//    	headerView.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View arg0) {
+//				Intent intent = new Intent(Intent.ACTION_VIEW, feedUri);
+//				startActivity(intent);
+//			}
+//		});
+//    	return feedUrl;
+    	return null;
     }
     
     private void loadingSuccessful(boolean success, String errorMessage) {
@@ -225,7 +231,7 @@ public class NewsFragment extends ListFragment implements OnScrollListener {
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		ActionBar actionBar = NewsActivity.getThis().getActionBar();
+		ActionBar actionBar = NewsActivityOld.getThis().getActionBar();
 		if (mLastFirstVisibleItem < firstVisibleItem && actionBar.isShowing()) {
             actionBar.hide();
         }

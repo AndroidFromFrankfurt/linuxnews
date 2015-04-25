@@ -57,21 +57,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:id="@id/tv_errormessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="12sp"
                 android:typeface="monospace" />
         </LinearLayout>
 
-        <RelativeLayout
+        <!--RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -84,7 +85,7 @@
                 android:background="@drawable/xml_btn_default_light"
                 android:text="@string/str_retry" />
             
-        </RelativeLayout>
+        </RelativeLayout-->
 
     </LinearLayout>
 

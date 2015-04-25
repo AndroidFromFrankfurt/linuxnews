@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+	<string name="distro_url_arch">https://www.archlinux.org/feeds/news/</string>
+	<string name="distro_url_debian">https://www.debian.org/News/news</string>
+	<string name="distro_url_gentoo">https://planet.gentoo.org/rss20.xml</string>
+	<string name="distro_url_parabola">https://www.parabola.nu/feeds/news/</string>
+	
+</resources>

@@ -2,7 +2,7 @@
 <resources>
 
     <!-- General -->
-    <string name="app_name">LinuxNews</string>
+    <string name="app_name">Linux News</string>
     <string name="app_author">Lesik Pidgornyy</string>
     <string name="news">News</string>
     <string name="title_activity_about">About</string>
@@ -20,6 +20,7 @@
     <!-- Layout -->
     <string name="str_header">Latest News</string>
     <string name="str_null"><![CDATA[<null>]]></string> <!-- TRANSLATORS: Leave this as is -->
+    <string name="str_loading">Fetching...</string>
     <string name="str_error">Couldn\'t fetch data.</string>
     <string name="str_retry">Retry</string>
     <string name="str_readmore">Read more&#8230;</string> <!-- TRANSLATORS: Leave the &#8230; after your translation -->

@@ -49,15 +49,15 @@ class NewsAdapter extends ArrayAdapter<RSSItem> {
 					
 					@Override
 					public void onClick(View v) {
-						ctx.startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url.toString())));
+						ctx.startActivity(new Intent(Intent.ACTION_VIEW).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).setData(Uri.parse(url.toString())));
 					}
 				});
             }
         	
         	if (tvPubDate != null) {
-        		// Too stupid to turn the RSS date into a local date - just delete some chars and it'll be fine
         		try {
-        			tvPubDate.setText(o.getDate().substring(5, o.getDate().length()-15));
+        			// too stupid to turn the RSS date into a local date - just delete some chars and it'll be fine ;)
+            		tvPubDate.setText(o.getDate().substring(5, o.getDate().length()-15));
         		}
         		catch(Exception e) {
         			tvPubDate.setText("");
