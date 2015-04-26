@@ -13,18 +13,17 @@
     <string name="action_reload">Reload</string>
     <string name="action_settings">Settings</string>
 	<string name="action_about">About</string>
-    
-    <!-- Dialog -->
-    <string name="dlg_loading">Fetching data</string>
-    <string name="dlg_loading_title">One second please</string>
 
     <!-- Settings -->
     <string name="pref_key_distro">distro</string> <!-- TRANSLATORS: Leave this as is -->
+    <string name="pref_key_distros">distros</string> <!-- TRANSLATORS: Leave this as is -->
+    <string name="pref_ttle_distros">Distributions</string>
+    <string name="pref_smry_distros">Choose the distributions you are interested in.</string>
     
-    <string name="pref_key_language">language</string> <!-- TRANSLATORS: Leave this as is -->
+	<string name="pref_key_language">language</string> <!-- TRANSLATORS: Leave this as is -->
     <string name="pref_def_language">English</string> <!-- TRANSLATORS: Leave this as is -->
     <string name="pref_ttle_language">Language</string>
-    <string name="pref_smry_language">Keep in mind that not all distributions offer their news in the language you select. If the chosen language is not available, the app will fall back to English.</string>
+    <string name="pref_smry_language">Not all news might be available in the selected language.</string>
     
     <!-- Layout -->
     <string name="str_header">Latest News</string>
