@@ -2,6 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 	<PreferenceCategory
             android:title="@string/title_activity_settings">
+		<MultiSelectListPreference 
+		    android:key="@string/pref_key_distros"
+		    android:title="@string/pref_ttle_distros"
+		    android:summary="@string/pref_smry_distros"
+		    android:entries="@array/distros"
+		    android:entryValues="@array/distros" />
 		<ListPreference 
 		    android:key="@string/pref_key_language"
 		    android:title="@string/pref_ttle_language"

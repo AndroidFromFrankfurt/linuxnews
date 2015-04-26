@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General -->
+    <string name="app_name">Linux новости</string>
+    <string name="news">Новости</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="title_activity_about">О программе</string>
+    <string name="hello_world">Привет, мир!</string>
+
+    <!-- Actionbar -->
+    <string name="action_reload">Перезагрузить</string>
+    <string name="action_settings">Настройки</string>
+	<string name="action_about">О программе</string>
+    
+    <!-- Settings -->
+    <string name="pref_ttle_language">Язык</string>
+    <string name="pref_smry_language">Возможно, что не все новости доступны в выбранном языке.</string>
+    
+    <!-- Layout -->
+    <string name="str_header">Последние новости</string>
+    <string name="str_loading">Загрузка данных&#8230;</string>
+    <string name="str_error">Ошибка при загрузке.</string>
+    <string name="str_retry">Попробовать заново</string>
+    <string name="str_readmore">Читать дальше&#8230;</string> <!-- TRANSLATORS: Leave the &#8230; after your translation -->
+    <string name="tell_dev">Если увидите одного из наших разработчиков, передайте ему эту информатию:</string>
+
+</resources>
