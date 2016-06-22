@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Linux News</string>
     <string name="ui_loading">Lade…</string>
+    <string name="ui_navigation_drawer_close">Seitenmenü schließen</string>
+    <string name="ui_navigation_drawer_open">Seitenmenü öffnen</string>
 </resources>
