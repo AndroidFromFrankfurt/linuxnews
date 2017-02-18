@@ -3,33 +3,34 @@ package org.androidfromfrankfurt.archnews;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.view.View;
 
 import com.crazyhitty.chdev.ks.rssmanager.OnRssLoadListener;
 import com.crazyhitty.chdev.ks.rssmanager.RssItem;
 import com.crazyhitty.chdev.ks.rssmanager.RssReader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnRssLoadListener {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
-    private ListView listView;
+
+    private RecyclerView recyclerView;
+    private NewsAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +58,23 @@ public class HomeActivity extends AppCompatActivity
         // check last selected distro (defaults to Arch Linux)
         navigationView.getMenu().findItem(getIdByDistro(getLastDistro())).setChecked(true);
 
-        listView = (ListView) findViewById(R.id.news_list);
-        listView.setEmptyView(findViewById(R.id.news_list_empty));
+        initResources();
+        initRecyclerView();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         refresh();
+    }
+
+    private void initResources() {
+        recyclerView = (RecyclerView) findViewById(R.id.news_list);
+//        recyclerView.setEmptyView(findViewById(R.id.news_list_empty));
+    }
+
+    private void initRecyclerView() {
+        if (recyclerView != null) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            listAdapter = new NewsAdapter(null);
+            recyclerView.setAdapter(listAdapter);
+        }
     }
 
     private String getLastDistro() {
@@ -182,14 +195,12 @@ public class HomeActivity extends AppCompatActivity
 
     private void refresh() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String distro = prefs.getString(getString(R.string.pref_distro),
-                getString(R.string.dist_archlinux));
+        String distro = prefs.getString(getString(R.string.pref_distro), getString(R.string.dist_archlinux));
         refresh(distro);
     }
 
     private void refresh(String distro) {
-        listView.setAdapter(null);
-
+        updateList(null);
         String feed = getFeedByDistro(distro);
         String[] feeds = {feed};
         new RssReader(this).showDialog(false).urls(feeds).parse(this);
@@ -197,8 +208,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onSuccess(List<RssItem> rssItems) {
-        listView.setAdapter(new NewsAdapter(getApplicationContext(), R.layout.news_item,
-                (ArrayList<RssItem>) rssItems));
+        updateList(rssItems);
     }
 
     @Override
@@ -210,5 +220,11 @@ public class HomeActivity extends AppCompatActivity
                         refresh();
                     }
                 }).show();
+    }
+
+    private void updateList(@Nullable List<RssItem> items) {
+        if (recyclerView != null && listAdapter != null) {
+            listAdapter.updateItems(items);
+        }
     }
 }
