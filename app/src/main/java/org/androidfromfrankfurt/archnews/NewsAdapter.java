@@ -3,7 +3,6 @@ package org.androidfromfrankfurt.archnews;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,10 @@ import android.widget.TextView;
 
 import com.crazyhitty.chdev.ks.rssmanager.RssItem;
 
-import java.text.SimpleDateFormat;
+import org.androidfromfrankfurt.archnews.utils.FormatUtil;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHolder> {
 
@@ -52,7 +50,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHo
         if (rssItem != null) {
             vh.title.setText(rssItem.getTitle());
             vh.desc.setText(Html.fromHtml(rssItem.getDescription()));
-            vh.pubDate.setText(formatPublishDate(rssItem.getPubDate()));
+            vh.pubDate.setText(FormatUtil.formatPublishDate(rssItem.getPubDate()));
         }
     }
 
@@ -74,14 +72,5 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHo
             items.addAll(allItems);
         }
         notifyDataSetChanged();
-    }
-
-    private String formatPublishDate(String publishDate) {
-        if (publishDate != null) {
-            Date pubDate = new Date(publishDate);
-            SimpleDateFormat df = new SimpleDateFormat("dd MMM YYYY HH:mm", Locale.getDefault());
-            return df.format(pubDate);
-        }
-        return "-";
     }
 }
