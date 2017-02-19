@@ -1,5 +1,8 @@
 package org.androidfromfrankfurt.archnews;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import com.crazyhitty.chdev.ks.rssmanager.RssItem;
 
 import org.androidfromfrankfurt.archnews.utils.FormatUtil;
+import org.androidfromfrankfurt.archnews.utils.IntentUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +22,11 @@ import java.util.List;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHolder> {
 
     private List<RssItem> items;
+    private Context context;
 
-    public NewsAdapter(@Nullable List<RssItem> items) {
+    public NewsAdapter(@NonNull Context context, @Nullable List<RssItem> items) {
+        this.context = context;
+
         if (items == null) {
             items = new ArrayList<>();
         }
@@ -51,6 +58,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsItemViewHo
             vh.title.setText(rssItem.getTitle());
             vh.desc.setText(Html.fromHtml(rssItem.getDescription()));
             vh.pubDate.setText(FormatUtil.formatPublishDate(rssItem.getPubDate()));
+            vh.itemView.setTag(rssItem);
+            vh.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openInBrowser((RssItem) v.getTag());
+                }
+            });
+        }
+    }
+
+    private void openInBrowser(RssItem rssItem) {
+        Intent intent = IntentUtil.getWebIntent(rssItem.getLink());
+        if (intent != null) {
+            context.startActivity(intent);
         }
     }
 

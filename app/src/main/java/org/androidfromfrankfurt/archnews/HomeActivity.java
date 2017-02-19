@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity
     private void initRecyclerView() {
         if (recyclerView != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            listAdapter = new NewsAdapter(null);
+            listAdapter = new NewsAdapter(HomeActivity.this, null);
             recyclerView.setAdapter(listAdapter);
         }
     }
