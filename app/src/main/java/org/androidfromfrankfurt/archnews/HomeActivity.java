@@ -1,5 +1,6 @@
 package org.androidfromfrankfurt.archnews;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,18 +15,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.crazyhitty.chdev.ks.rssmanager.OnRssLoadListener;
 import com.crazyhitty.chdev.ks.rssmanager.RssItem;
 import com.crazyhitty.chdev.ks.rssmanager.RssReader;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnRssLoadListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnRssLoadListener, AdapterView.OnItemSelectedListener {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
@@ -35,9 +43,18 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.app_bar_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                getResources().getStringArray(R.array.dist_names));
+        Spinner spinner = new Spinner(this);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(this);
+        toolbar.addView(spinner, 0);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +64,7 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
+        /*
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.ui_navigation_drawer_open, R.string.ui_navigation_drawer_close);
@@ -57,12 +75,13 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         // check last selected distro (defaults to Arch Linux)
         navigationView.getMenu().findItem(getIdByDistro(getLastDistro())).setChecked(true);
+        */
 
         initResources();
         initRecyclerView();
-
-        refresh();
     }
+
+
 
     private void initResources() {
         recyclerView = (RecyclerView) findViewById(R.id.news_list);
@@ -108,6 +127,7 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
 
@@ -132,7 +152,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private String getDistroById(int id) {
-        // this is really retarded, if anybody knows a better way to handle this please contribute
+        // this is really stupid, if anybody knows a better way to handle this please contribute
         switch (id) {
             case R.id.dist_archlinux:
                 return getString(R.string.dist_archlinux);
@@ -226,5 +246,20 @@ public class HomeActivity extends AppCompatActivity
         if (recyclerView != null && listAdapter != null) {
             listAdapter.updateItems(items);
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d(TAG, "ITEM SELECTED");
+        Snackbar.make(findViewById(android.R.id.content).getRootView(), "Selected an item", Snackbar.LENGTH_SHORT).show();
+        String feed = getResources().getStringArray(R.array.dist_urls)[position];
+        // anybody knows how to skip this step? super annoying
+        String[] feeds = {feed};
+        new RssReader(this).showDialog(false).urls(feeds).parse(this);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // nothing to do
     }
 }
