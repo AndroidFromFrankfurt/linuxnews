@@ -119,35 +119,30 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
+        } else if (id == R.id.action_refresh) {
+            onRefresh();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void refresh() {
-        Log.d(TAG, "REFRESHING...");
-        String feed = getResources().getStringArray(R.array.dist_urls)[selected_distro];
-        // anybody knows how to skip this step? super annoying
-        String[] feeds = {feed};
-        new RssReader(this).showDialog(false).urls(feeds).parse(this);
-    }
-
     @Override
     public void onSuccess(List<RssItem> rssItems) {
-        Log.d(TAG, "Finished refresh (onSuccess)");
         swipeContainer.setRefreshing(false);
+
         updateList(rssItems);
     }
 
     @Override
     public void onFailure(String message) {
-        Log.d(TAG, "Finished refresh (onFailure)");
         swipeContainer.setRefreshing(false);
+
         Snackbar.make(findViewById(android.R.id.content).getRootView(), "Failed to fetch news", Snackbar.LENGTH_LONG)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        refresh();
+                        onRefresh();
                     }
                 }).show();
     }
@@ -161,9 +156,8 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         selected_distro = position;
-        Log.d(TAG, "ITEM SELECTED");
-        Snackbar.make(findViewById(android.R.id.content).getRootView(), "Selected an item", Snackbar.LENGTH_SHORT).show();
-        refresh();
+
+        onRefresh();
     }
 
     @Override
@@ -173,7 +167,11 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onRefresh() {
-        Log.d(TAG, "onRefresh()");
-        refresh();
+        swipeContainer.setRefreshing(true);
+
+        String feed = getResources().getStringArray(R.array.dist_urls)[selected_distro];
+        // anybody knows how to skip this step? super annoying
+        String[] feeds = {feed};
+        new RssReader(this).showDialog(false).urls(feeds).parse(this);
     }
 }
