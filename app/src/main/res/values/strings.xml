@@ -28,4 +28,5 @@
     <string name="dist_fedora">Fedora</string>
     <string name="feed_fedora" translatable="false">https://fedoramagazine.org/feed/</string>
     <string name="app_description">Fetch news about Linux</string>
+    <string name="pref_dist_dialogtitle">Select distros that are shown</string>
 </resources>

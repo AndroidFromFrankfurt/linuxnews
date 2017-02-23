@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <MultiSelectListPreference
+        android:dialogTitle="@string/pref_dist_dialogtitle"
+        android:key="pref_dist"
+        android:summary="Something something"
+        android:title="Title goes here"
+        android:entries="@array/dist_names"
+        android:entryValues="@array/dist_names" />
+</PreferenceScreen>

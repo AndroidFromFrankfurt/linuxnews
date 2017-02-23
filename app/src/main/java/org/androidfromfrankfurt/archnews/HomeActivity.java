@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,12 +34,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnRssLoadListener, AdapterView.OnItemSelectedListener {
+        implements OnRssLoadListener, AdapterView.OnItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeContainer;
     private NewsAdapter listAdapter;
+
+    private int selected_distro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,36 +60,16 @@ public class HomeActivity extends AppCompatActivity
         spinner.setOnItemSelectedListener(this);
         toolbar.addView(spinner, 0);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                refresh();
-            }
-        });
-
-        /*
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.ui_navigation_drawer_open, R.string.ui_navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        // check last selected distro (defaults to Arch Linux)
-        navigationView.getMenu().findItem(getIdByDistro(getLastDistro())).setChecked(true);
-        */
-
         initResources();
         initRecyclerView();
+        initSwipeContainer();
     }
 
 
 
     private void initResources() {
         recyclerView = (RecyclerView) findViewById(R.id.news_list);
-//        recyclerView.setEmptyView(findViewById(R.id.news_list_empty));
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
     }
 
     private void initRecyclerView() {
@@ -93,6 +77,12 @@ public class HomeActivity extends AppCompatActivity
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             listAdapter = new NewsAdapter(HomeActivity.this, null);
             recyclerView.setAdapter(listAdapter);
+        }
+    }
+
+    private void initSwipeContainer() {
+        if (swipeContainer != null) {
+            swipeContainer.setOnRefreshListener(this);
         }
     }
 
@@ -134,105 +124,25 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        String distro = getDistroById(id);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs.edit().putString(getString(R.string.pref_distro), distro).commit();
-
-        refresh(distro);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private String getDistroById(int id) {
-        // this is really stupid, if anybody knows a better way to handle this please contribute
-        switch (id) {
-            case R.id.dist_archlinux:
-                return getString(R.string.dist_archlinux);
-            case R.id.dist_centos:
-                return getString(R.string.dist_centos);
-            case R.id.dist_debian:
-                return getString(R.string.dist_debian);
-            case R.id.dist_gnewsense:
-                return getString(R.string.dist_gnewsense);
-            case R.id.dist_parabola:
-                return getString(R.string.dist_parabola);
-            case R.id.dist_scientificlinux:
-                return getString(R.string.dist_scientificlinux);
-            case R.id.dist_ubuntu:
-                return getString(R.string.dist_ubuntu);
-            default:
-                return getString(R.string.dist_archlinux);
-        }
-    }
-
-    private int getIdByDistro(String distro) {
-        if (distro.equals(getString(R.string.dist_archlinux))) {
-            return R.id.dist_archlinux;
-        } else if (distro.equals(getString(R.string.dist_centos))) {
-            return R.id.dist_centos;
-        } else if (distro.equals(getString(R.string.dist_debian))) {
-            return R.id.dist_debian;
-        } else if (distro.equals(getString(R.string.dist_gnewsense))) {
-            return R.id.dist_gnewsense;
-        } else if (distro.equals(getString(R.string.dist_parabola))) {
-            return R.id.dist_parabola;
-        } else if (distro.equals(getString(R.string.dist_scientificlinux))) {
-            return R.id.dist_scientificlinux;
-        } else if (distro.equals(getString(R.string.dist_ubuntu))) {
-            return R.id.dist_ubuntu;
-        } else {
-            return R.id.dist_archlinux;
-        }
-    }
-
-    private String getFeedByDistro(String distro) {
-        if (distro.equals(getString(R.string.dist_archlinux))) {
-            return getString(R.string.feed_archlinux);
-        } else if (distro.equals(getString(R.string.dist_centos))) {
-            return getString(R.string.feed_centos);
-        } else if (distro.equals(getString(R.string.dist_debian))) {
-            return getString(R.string.feed_debian);
-        } else if (distro.equals(getString(R.string.dist_gnewsense))) {
-            return getString(R.string.feed_gnewsense);
-        } else if (distro.equals(getString(R.string.dist_parabola))) {
-            return getString(R.string.feed_parabola);
-        } else if (distro.equals(getString(R.string.dist_scientificlinux))) {
-            return getString(R.string.feed_scientificlinux);
-        } else if (distro.equals(getString(R.string.dist_ubuntu))) {
-            return getString(R.string.feed_ubuntu);
-        } else {
-            return getString(R.string.feed_archlinux);
-        }
-    }
-
     private void refresh() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String distro = prefs.getString(getString(R.string.pref_distro), getString(R.string.dist_archlinux));
-        refresh(distro);
-    }
-
-    private void refresh(String distro) {
-        updateList(null);
-        String feed = getFeedByDistro(distro);
+        Log.d(TAG, "REFRESHING...");
+        String feed = getResources().getStringArray(R.array.dist_urls)[selected_distro];
+        // anybody knows how to skip this step? super annoying
         String[] feeds = {feed};
         new RssReader(this).showDialog(false).urls(feeds).parse(this);
     }
 
     @Override
     public void onSuccess(List<RssItem> rssItems) {
+        Log.d(TAG, "Finished refresh (onSuccess)");
+        swipeContainer.setRefreshing(false);
         updateList(rssItems);
     }
 
     @Override
     public void onFailure(String message) {
+        Log.d(TAG, "Finished refresh (onFailure)");
+        swipeContainer.setRefreshing(false);
         Snackbar.make(findViewById(android.R.id.content).getRootView(), "Failed to fetch news", Snackbar.LENGTH_LONG)
                 .setAction("Retry", new View.OnClickListener() {
                     @Override
@@ -250,16 +160,20 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selected_distro = position;
         Log.d(TAG, "ITEM SELECTED");
         Snackbar.make(findViewById(android.R.id.content).getRootView(), "Selected an item", Snackbar.LENGTH_SHORT).show();
-        String feed = getResources().getStringArray(R.array.dist_urls)[position];
-        // anybody knows how to skip this step? super annoying
-        String[] feeds = {feed};
-        new RssReader(this).showDialog(false).urls(feeds).parse(this);
+        refresh();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // nothing to do
+    }
+
+    @Override
+    public void onRefresh() {
+        Log.d(TAG, "onRefresh()");
+        refresh();
     }
 }
