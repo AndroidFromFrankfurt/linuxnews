@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ui_loading">Загрузка данных…</string>
     <string name="action_settings">Настройки</string>
+    <string name="action_refresh">Обновить</string>
+    <string name="app_name">Новости Linux</string>
+    <string name="app_description">Скачать новости про Linux</string>
 </resources>

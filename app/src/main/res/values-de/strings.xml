@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ui_loading">Lade…</string>
-    <string name="ui_navigation_drawer_close">Seitenmenü schließen</string>
-    <string name="ui_navigation_drawer_open">Seitenmenü öffnen</string>
+    <string name="action_refresh">Aktualisieren</string>
+    <string name="app_name">Linux Neuigkeiten</string>
+    <string name="app_description">Neuigkeiten über Linux herunterladen</string>
 </resources>

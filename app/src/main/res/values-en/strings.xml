@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ui_loading">Fetching…</string>
-    <string name="ui_navigation_drawer_close">Close navigation drawer</string>
-    <string name="ui_navigation_drawer_open">Open navigation drawer</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="app_name">Linux News</string>
+    <string name="app_description">Fetch news about Linux</string>
 </resources>
