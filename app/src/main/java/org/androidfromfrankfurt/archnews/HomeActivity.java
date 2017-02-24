@@ -1,9 +1,7 @@
 package org.androidfromfrankfurt.archnews;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -34,6 +32,8 @@ public class HomeActivity extends AppCompatActivity
     private SwipeRefreshLayout swipeContainer;
     private NewsAdapter listAdapter;
 
+    private Snackbar snackbar;
+
     private int selected_distro;
 
     @Override
@@ -42,7 +42,8 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.app_bar_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item,
@@ -110,6 +111,10 @@ public class HomeActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Callback that is run when downloading RSS completed successfully
+     * @param rssItems      downloaded RSS items
+     */
     @Override
     public void onSuccess(List<RssItem> rssItems) {
         swipeContainer.setRefreshing(false);
@@ -117,17 +122,26 @@ public class HomeActivity extends AppCompatActivity
         updateList(rssItems);
     }
 
+    /**
+     * Callback that is run when downloading RSS failed
+     * @param message
+     */
     @Override
     public void onFailure(String message) {
         swipeContainer.setRefreshing(false);
+        // debating whether or not to hide previous content on failure
+        // on one hand it's cool to see the cached posts even when connection is lost
+        // on the other hand when selecting a different distro, old posts are still showing
+        //updateList(null);
 
-        Snackbar.make(findViewById(android.R.id.content).getRootView(), "Failed to fetch news", Snackbar.LENGTH_LONG)
-                .setAction("Retry", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onRefresh();
-                    }
-                }).show();
+        snackbar = Snackbar.make(findViewById(android.R.id.content).getRootView(), message, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Retry", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRefresh();
+            }
+        });
+        snackbar.show();
     }
 
     private void updateList(@Nullable List<RssItem> items) {
@@ -150,6 +164,8 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onRefresh() {
+        if (snackbar != null)
+            snackbar.dismiss();
         swipeContainer.setRefreshing(true);
 
         String feed = getResources().getStringArray(R.array.dist_urls)[selected_distro];
