@@ -3,5 +3,5 @@
     <string name="action_settings">Ajustes</string>
     <string name="action_refresh">Actualizar</string>
     <string name="app_name">Noticias de Linux</string>
-    <string name="app_description">Descargar noticias sobre Linux</string>
+    <string name="activity_settings">Ajustes</string>
 </resources>

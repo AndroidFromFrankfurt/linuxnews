@@ -2,5 +2,6 @@
 <resources>
     <string name="action_refresh">Refresh</string>
     <string name="app_name">Linux News</string>
-    <string name="app_description">Fetch news about Linux</string>
+    <string name="action_settings">Settings</string>
+    <string name="activity_settings">Settings</string>
 </resources>

@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="dist_ids">
-        <item>archlinux</item>
-        <item>debian</item>
-    </string-array>
-
-    <string-array name="dist_names">
+    <string-array name="dist_names" translatable="false">
         <item>Arch Linux</item>
         <item>Debian</item>
     </string-array>
 
-    <string-array name="dist_urls">
+    <string-array name="dist_urls" translatable="false">
         <item>https://www.archlinux.org/feeds/news</item>
         <item>https://www.debian.org/News/news</item>
     </string-array>
 
-    <integer-array name="dist_logos">
-        <item>@drawable/ic_dist_archlinux</item>
-        <item>@drawable/ic_dist_debian</item>
-    </integer-array>
 </resources>

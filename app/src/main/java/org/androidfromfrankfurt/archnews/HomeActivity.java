@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private String getLastDistro() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //return prefs.getString(getString(R.string.pref_distro), getString(R.string.dist_archlinux));
         return null;
     }

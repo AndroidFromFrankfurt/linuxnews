@@ -2,5 +2,6 @@
 <resources>
     <string name="action_refresh">Aktualisieren</string>
     <string name="app_name">Linux Neuigkeiten</string>
-    <string name="app_description">Neuigkeiten über Linux herunterladen</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="activity_settings">Einstellungen</string>
 </resources>
