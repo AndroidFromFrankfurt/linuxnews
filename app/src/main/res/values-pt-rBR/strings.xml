@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Linux News</string>
+
+    <string name="action_settings">Configurações</string>
+
+    <string name="pref_dist_dialogtitle">Selecione distros que são mostradas</string>
+    <string name="action_refresh">Atualizar</string>
+    <string name="activity_settings">Configurações</string>
+</resources>
